@@ -1,0 +1,51 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Gradle ###
+.gradle/3.4.1
+.gradle/**
+build/
+out/
+!gradle/wrapper/gradle-wrapper.jar
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+one-all-webportal.iml
+
+### NetBeans ###
+nbproject/private/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+src/test/resources/
+.gradle/3.2.1/
+.gradle/4.6/
+.gradle/buildOutputCleanup/
+.gradle/vcsWorkingDirs/
+.gradle/4.8.1/
+
+
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+.gitignore
+build.gradle
+gradle/wrapper/gradle-wrapper.properties
+gradlew
+gradlew.bat
+settings.gradle
+src/
