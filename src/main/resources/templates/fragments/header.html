@@ -1,102 +1,39 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<head th:fragment="header">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Automated Question Paper</title>
-    <!-- Bootstrap core CSS-->
-    <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
-    <!-- Custom fonts for this template-->
-    <link th:href="@{/vendor/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css">
-    <link th:href="@{/vendor/datatables/dataTables.bootstrap4.css}" rel="stylesheet">
-    <link th:href="@{/css/sb-admin.css}" rel="stylesheet" type="text/css" media="all"/>
-</head>
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
 
-<body class="fixed-nav sticky-footer bg-dark" id="page-top">
-<!-- Navigation-->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-    <a class="navbar-brand" th:href="@{/}">School Management System </a>
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-            data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-            aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-                <a class="nav-link" th:href="@{/}">
-                    <i class="fa fa-fw fa-dashboard"></i>
-                    <span class="nav-link-text">Dashboard</span>
-                </a>
-            </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-                <a class="nav-link" th:href="@{/question/list}">
-                    <i class="fa fa-fw fa-area-chart"></i>
-                    <span class="nav-link-text">Students</span>
-                </a>
-            </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-                <a class="nav-link" th:href="@{/question/add}">
-                    <i class="fa fa-fw fa-area-chart"></i>
-                    <span class="nav-link-text">Admin Static Data</span>
-                </a>
-            </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-                <a class="nav-link" th:href="@{/course/list}">
-                    <i class="fa fa-fw fa-area-chart"></i>
-                    <span class="nav-link-text">Lectures</span>
-                </a>
-            </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-                <a class="nav-link" th:href="@{/topic/list}">
-                    <i class="fa fa-fw fa-table"></i>
-                    <span class="nav-link-text">Topic</span>
-                </a>
-            </li>
-
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-                <a class="nav-link" th:href="@{/department/list}">
-                    <i class="fa fa-fw fa-user-plus"></i>
-                    <span class="nav-link-text">Departments</span>
-                </a>
-            </li>
-
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-                <a class="nav-link" th:href="@{/faculty/list}">
-                    <i class="fa fa-fw fa-book"></i>
-                    <span class="nav-link-text">Faculty</span>
-                </a>
-            </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-                <a class="nav-link" th:href="@{/report/list}">
-                    <i class="fa fa-fw fa-book"></i>
-                    <span class="nav-link-text">Reports</span>
-                </a>
-            </li>
+    <script type="text/javascript"
+            th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
+    <script type="text/javascript"
+            th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
 
 
-        </ul>
-        <ul class="navbar-nav sidenav-toggler">
-            <li class="nav-item">
-                <a class="nav-link text-center" id="sidenavToggler">
-                    <i class="fa fa-fw fa-angle-left"></i>
-                </a>
-            </li>
-        </ul>
-        <ul class="navbar-nav ml-auto">
+<body>
 
-
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-                    <i class="fa fa-fw fa-sign-out"></i>Logout</a>
-            </li>
-        </ul>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                    aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span> <span
+                    class="icon-bar"></span> <span class="icon-bar"></span> <span
+                    class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" th:href="@{/}">Welcome:: School Management System</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
+            </ul>
+        </div>
     </div>
 </nav>
-
-
-
+</body>
+</html>

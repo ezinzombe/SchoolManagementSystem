@@ -33,6 +33,7 @@ src/test/resources/
 .gradle/buildOutputCleanup/
 .gradle/vcsWorkingDirs/
 .gradle/4.8.1/
+.gradle
 
 
 *.class
@@ -41,6 +42,4 @@ src/test/resources/
 *.jar
 *.war
 *.ear
-
-gradle/wrapper/gradle-wrapper.properties
 

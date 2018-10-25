@@ -2,68 +2,70 @@ package zw.co.soskode.SchoolManagementSystem.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import zw.co.soskode.SchoolManagementSystem.controller.LoggingAccessDeniedHandler;
+import zw.co.soskode.SchoolManagementSystem.service.UserService;
 
-
+@Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private LoggingAccessDeniedHandler accessDeniedHandler;
+    CustomSuccessHandler customSuccessHandler;
+    @Autowired
+    private UserService userService;
+    private String[] AUTH_WHITELIST = {"/resources/**",
+            "/registration**",
+            "/js/**",
+            "/css/**",
+            "/img/**",
+            "/webjars/**"};
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder authenticationMgr) throws Exception {
+        authenticationMgr.inMemoryAuthentication()
+                .withUser("lecturer@lecturer.com").password("lecturer").authorities("LECTURER");
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                .antMatchers(
-                        "/",
-                        "/**",
-                        "/resources/**",
-                        "/static/**",
-                        "/js/**",
-                        "/css/**",
-                        "/img/**",
-                        "/webjars/**").permitAll()
-                .antMatchers("/user/**").hasRole("USER")
-                .anyRequest().authenticated()
+
+
+        http.authorizeRequests()
                 .and()
                 .formLogin()
                 .loginPage("/login")
                 .permitAll()
+                .successHandler(customSuccessHandler)
+                .failureUrl("/login?error")
+                .usernameParameter("email").passwordParameter("password")
                 .and()
                 .logout()
-                .invalidateHttpSession(true)
-                .clearAuthentication(true)
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/login?logout")
-                .permitAll()
-                .and()
-                .exceptionHandling()
-                .accessDeniedHandler(accessDeniedHandler);
+                .logoutSuccessUrl("/login?logout");
+
+    }
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
+        auth.setUserDetailsService(userService);
+        auth.setPasswordEncoder(passwordEncoder());
+        return auth;
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("user")
-                .password("{noop}password")
-                .roles("USER")
-                .and()
-                .withUser("manager")
-                .password("{noop}password")
-                .roles("MANAGER");
-    }
-
-
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
+        auth.authenticationProvider(authenticationProvider());
     }
 
 }
