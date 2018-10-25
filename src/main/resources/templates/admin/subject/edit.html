@@ -1,22 +1,24 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml"
 >
 <head>
-    <title id="pageTitle">Add Role </title>
+    <title id="pageTitle">Edit Subject </title>
 </head>
-<div th:include="fragments/header"></div>
 
+<div th:include="fragments/header"></div>
 <body class="bg-cyan">
 <br/>
 <br/>
+
 
 <div class="body">
     <div id="wrapper">
 
 
-        <form autocomplete="off" class="sky-form" th:object="${role}" method="post" th:action="@{/admin/role/save}"
+        <form autocomplete="off" class="sky-form" th:object="${subject}" method="post"
+              th:action="@{/admin/subject/save}"
               role="form">
 
-            <header> Role Details</header>
+            <header> Subject Details</header>
 
             <div>
                 <fieldset>
@@ -30,7 +32,7 @@
                                     <i class="icon-append icon-user"></i>
                                     <input type="text" id="name" name="name" th:field="*{name}"
                                            required=""
-                                           placeholder="Enter Role Name "/>
+                                           placeholder="Enter Subject Name "/>
                                     <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Title error message
                                     </div>
                                 </label>
@@ -39,7 +41,7 @@
                     </section>
 
                     <div>
-                        <button type="submit" class="button">Add Role Details</button>
+                        <button type="submit" class="button">Update Subject Details</button>
                     </div>
 
                     <div>

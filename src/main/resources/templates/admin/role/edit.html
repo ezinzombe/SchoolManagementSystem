@@ -30,6 +30,7 @@
                                 <label class="input">
                                     <i class="icon-append icon-user"></i>
                                     <input type="text" id="name" name="name" th:field="*{name}"
+                                           required=""
                                            placeholder="Enter Role Name "/>
                                     <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Title error message
                                     </div>
