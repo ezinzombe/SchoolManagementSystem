@@ -30,6 +30,15 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
+                <li sec:authorize="hasRole(ADMIN)"><a th:href="@{/admin/list}">Manage Static Data</a></li>
+            </ul>
+            <ul class="nav navbar-nav">
+                <li sec:authorize="hasRole(STUDENT)"><a th:href="@{/logout}">Register Course</a></li>
+            </ul>
+            <ul class="nav navbar-nav">
+                <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Add Results</a></li>
+            </ul>
+            <ul class="nav navbar-nav">
                 <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
             </ul>
         </div>
