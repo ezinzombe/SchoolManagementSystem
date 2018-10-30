@@ -1,24 +1,39 @@
-<!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
-<head>
-    <title></title>
-</head>
+<script th:src="@{js/vendor/jquery-2.1.4.min.js}">
+        </script>
 
-<body>
-<footer>
-    <div th:fragment="footer">
-        <div class="footer_bottom text-center">
-            <p class="wow fadeInRight">
-                Developed And Mantained
-                <i class="fa fa-heart"></i>
-                by
-                <a target="_blank" href="http://soskode.co.zw"> SOSKODE </a>
-                2018. All Rights Reserved
-            </p>
-        </div><!-- Footer bottom end -->
-    </div>
-</footer><!-- Footer end -->
+<script th:src="@{js/plugins.js}"></script>
+<script th:src="@{js/main.js}"></script>
+
+
+<script th:src="@{js/lib/chart-js/Chart.bundle.js}"></script>
+<script  th:src="@{js/dashboard.js}"></script>
+<script  th:src="@{js/widgets.js}"></script>
+<script  th:src="@{js/lib/vector-map/jquery.vmap.js}"></script>
+<script  th:src="@{js/lib/vector-map/jquery.vmap.min.js}"></script>
+<script  th:src="@{js/lib/vector-map/jquery.vmap.sampledata.js}"></script>
+<script  th:src="@{js/lib/vector-map/country/jquery.vmap.world.js}"></script>
+<script>
+    ( function ( $ ) {
+        "use strict";
+
+        jQuery( '#vmap' ).vectorMap( {
+            map: 'world_en',
+            backgroundColor: null,
+            color: '#ffffff',
+            hoverOpacity: 0.7,
+            selectedColor: '#1de9b6',
+            enableZoom: true,
+            showTooltip: true,
+            values: sample_data,
+            scaleColors: [ '#1de9b6', '#03a9f5' ],
+            normalizeFunction: 'polynomial'
+        } );
+    } )( jQuery );
+</script>
+
 </body>
 </html>

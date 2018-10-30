@@ -1,77 +1,74 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Administrator</title>
-    <div th:include="fragments/header"></div>
-</head>
-<body>
+<div th:include="fragments/header"></div>
 
-<div class="container" style="opacity: 0.80">
-    <div class="container-fluid">
-        <div class="panel panel-primary">
-            <div class="panel-heading">Administrator's Dashboard</div>
+<!--<div class="container" style="opacity: 0.80">-->
+    <!--<div class="container-fluid">-->
+        <!--<div class="panel panel-primary">-->
+            <!--<div class="panel-heading">Administrator's Dashboard</div>-->
 
 
-            <br/>
-            <br/>
+            <!--<br/>-->
+            <!--<br/>-->
 
-            <h4 style="color: rgb(40,96,144)"> Manage Static Data</h4>
-            <table class="table table-striped">
+            <!--<h4 style="color: rgb(40,96,144)"> Manage Static Data</h4>-->
+            <!--<table class="table table-striped">-->
 
-                <tr>
-                    <td>
-                        <a class="btn btn-default" th:href="@{/admin/role/list}"/> Manage Roles</a>
-                    </td>
+                <!--<tr>-->
+                    <!--<td>-->
+                        <!--<a class="btn btn-default" th:href="@{/admin/role/list}"/> Manage Roles</a>-->
+                    <!--</td>-->
 
-                    <td>
-                        <a class="btn btn-default" th:href="@{/admin/subject/list}"/> Manage Subjects</a>
-                    </td>
-
-
-                    <td>
-                        <a class="btn btn-default" th:href="@{/admin/school/list}"/> Manage Schools</a>
-                    </td>
+                    <!--<td>-->
+                        <!--<a class="btn btn-default" th:href="@{/admin/subject/list}"/> Manage Subjects</a>-->
+                    <!--</td>-->
 
 
-                    <td>
-                        <a class="btn btn-default" th:href="@{/admin/user/list}"/> Manage Users</a>
-                    </td>
-
-                </tr>
-                <tr>
-
-                    <td>
-                        <a class="btn btn-default" th:href="@{/admin/mainServiceCategory/list}"/> Manage Main Service
-                        Categories</a>
-                    </td>
-                    <td>
-                        <a class="btn btn-default" th:href="@{/admin/firstServiceCategory/list}"/> Manage 1st Level
-                        Service Categories</a>
-                    </td>
-
-                    <td>
-                        <a class="btn btn-default" th:href="@{/admin/secondServiceCategory/list}"/> Manage 2nd Level
-                        Service Categories</a>
-                    </td>
+                    <!--<td>-->
+                        <!--<a class="btn btn-default" th:href="@{/admin/school/list}"/> Manage Schools</a>-->
+                    <!--</td>-->
 
 
-                    <td>
-                        <a class="btn btn-default" th:href="@{/admin/thirdServiceCategory/list}"/> Manage 3rd Level
-                        Service Categories</a>
-                    </td>
+                    <!--<td>-->
+                        <!--<a class="btn btn-default" th:href="@{/admin/user/list}"/> Manage Users</a>-->
+                    <!--</td>-->
 
-                </tr>
+                <!--</tr>-->
+                <!--<tr>-->
+
+                    <!--<td>-->
+                        <!--<a class="btn btn-default" th:href="@{/admin/mainServiceCategory/list}"/> Manage Main Service-->
+                        <!--Categories</a>-->
+                    <!--</td>-->
+                    <!--<td>-->
+                        <!--<a class="btn btn-default" th:href="@{/admin/firstServiceCategory/list}"/> Manage 1st Level-->
+                        <!--Service Categories</a>-->
+                    <!--</td>-->
+
+                    <!--<td>-->
+                        <!--<a class="btn btn-default" th:href="@{/admin/secondServiceCategory/list}"/> Manage 2nd Level-->
+                        <!--Service Categories</a>-->
+                    <!--</td>-->
 
 
-            </table>
+                    <!--<td>-->
+                        <!--<a class="btn btn-default" th:href="@{/admin/thirdServiceCategory/list}"/> Manage 3rd Level-->
+                        <!--Service Categories</a>-->
+                    <!--</td>-->
 
-        </div>
+                <!--</tr>-->
 
 
-    </div>
-</div>
-<div class="clearfix"></div>
+            <!--</table>-->
+
+        <!--</div>-->
+
+
+    <!--</div>-->
+<!--</div>-->
+<!--<div class="clearfix"></div>-->
+
+
+
 
 <div th:include="fragments/footer"></div>
-</body>
-</html>

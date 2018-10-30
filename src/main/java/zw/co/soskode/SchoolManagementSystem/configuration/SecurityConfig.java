@@ -23,7 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/registration**",
             "/js/**",
             "/css/**",
-            "/img/**",
+            "/images/**",
             "/webjars/**"};
 
     @Autowired
@@ -37,6 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
         http.authorizeRequests()
+                .antMatchers(AUTH_WHITELIST).permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/login")
