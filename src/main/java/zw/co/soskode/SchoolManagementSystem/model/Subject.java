@@ -1,9 +1,8 @@
 package zw.co.soskode.SchoolManagementSystem.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.util.*;
 
 /**
  * Created by zinzombe on Oct
@@ -15,26 +14,7 @@ public class Subject extends BaseEntityId {
     private String name;
     @NotEmpty
     private String subjectCode;
-    private TeacherDetails teacherDetails;
-    private StudentDetails studentDetails;
 
-    @ManyToOne(cascade = {CascadeType.MERGE})
-    public StudentDetails getStudentDetails() {
-        return studentDetails;
-    }
-
-    public void setStudentDetails(StudentDetails studentDetails) {
-        this.studentDetails = studentDetails;
-    }
-
-    @ManyToOne(cascade = {CascadeType.MERGE})
-    public TeacherDetails getTeacherDetails() {
-        return teacherDetails;
-    }
-
-    public void setTeacherDetails(TeacherDetails teacherDetails) {
-        this.teacherDetails = teacherDetails;
-    }
 
     public String getSubjectCode() {
         return subjectCode;

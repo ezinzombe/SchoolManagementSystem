@@ -6,11 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import zw.co.soskode.SchoolManagementSystem.model.StudentDetails;
-import zw.co.soskode.SchoolManagementSystem.model.TeacherDetails;
+import zw.co.soskode.SchoolManagementSystem.model.Student;
 import zw.co.soskode.SchoolManagementSystem.model.User;
 import zw.co.soskode.SchoolManagementSystem.repository.StudentRepository;
-import zw.co.soskode.SchoolManagementSystem.repository.TeacherRepository;
 import zw.co.soskode.SchoolManagementSystem.repository.UserRepository;
 
 import java.util.Date;
@@ -44,7 +42,7 @@ public class ApproveStudentController {
     @RequestMapping(value = {"/student/save"}, method = RequestMethod.POST)
     public String add(@ModelAttribute("user") @Validated User user, Model model, RedirectAttributes redirectAttributes) {
         System.out.println("=================================="+user);
-        final StudentDetails student = new StudentDetails();
+        final Student student = new Student();
         student.setUser(user);
         student.setUserId(user.getId());
         student.setDateCreated(new Date());

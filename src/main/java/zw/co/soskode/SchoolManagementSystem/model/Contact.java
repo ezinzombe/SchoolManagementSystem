@@ -1,17 +1,30 @@
 package zw.co.soskode.SchoolManagementSystem.model;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
 /**
  * Created by zinzombe on Oct
  */
-@Entity(name = "contact")
+@Entity
+@Table(name = "contact")
 public class Contact extends BaseEntityId {
 
+    private Student studentDetails;
     @NotEmpty
     private String contact1;
     private String contact2;
+
+    @ManyToOne
+    public Student getStudentDetails() {
+        return studentDetails;
+    }
+
+    public void setStudentDetails(Student studentDetails) {
+        this.studentDetails = studentDetails;
+    }
 
     public String getContact1() {
         return contact1;

@@ -1,63 +1,60 @@
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml"
->
-<head>
-    <title id="pageTitle">Add Role </title>
-</head>
-<div th:include="fragments/header"></div>
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 
-<body class="bg-cyan">
-<br/>
-<br/>
+<th:block th:include="fragments/header"></th:block>
 
-<div class="body">
-    <div id="wrapper">
+<div class="content mt-3">
+    <div class="animated fadeIn">
+        <div class="row">
 
 
-        <form autocomplete="off" class="sky-form" th:object="${role}" method="post" th:action="@{/admin/role/save}"
-              role="form">
 
-            <header> Role Details</header>
+            <div class="col-md-2"></div>
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-header"><strong>Role</strong>
+                        <small> Form</small>
+                    </div>
+                    <div class="card-body card-block">
 
-            <div>
-                <fieldset>
 
-                    <input type="hidden" th:field="*{id}"/>
-
-                    <section>
-                        <div class="row">
-                            <div class="col col-5">
-                                <label class="input">
-                                    <i class="icon-append icon-user"></i>
-                                    <input type="text" id="name" name="name" th:field="*{name}"
-                                           required=""
-                                           placeholder="Enter Role Name "/>
-                                    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Title error message
-                                    </div>
-                                </label>
+                        <form autocomplete="off" class="sky-form" th:object="${role}" method="post" th:action="@{/admin/role/save}" role="form">
+                            <input type="hidden" th:field="*{id}"/>
+                            <div class="form-group"><label for="name" class=" form-control-label">Role
+                                Name</label><input type="text" id="name" name="name" th:field="*{name}"
+                                                   placeholder="Enter your role name" class="form-control">
+                                <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
                             </div>
-                        </div>
-                    </section>
 
-                    <div>
-                        <button type="submit" class="button">Add Role Details</button>
+
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary btn-sm">
+                                    <i class="fa fa-dot-circle-o"></i> Submit
+                                </button>
+                                <button type="reset" class="btn btn-danger btn-sm">
+                                    <a th:href="@{/admin/list}"> <i class="fa fa-ban"></i> Reset</a>
+
+                                </button>
+                            </div>
+
+                        </form>
+                        <span th:utext="${successMessage}">
+
                     </div>
+                </div>
 
-                    <div>
-                        <a th:href="@{/admin/list}" class="buttonLeftCancel">Cancel</a>
-                    </div>
-                    </footer>
 
-                </fieldset>
             </div>
+            <div class="col-md-2"></div>
 
-            <span th:utext="${successMessage}"></span>
 
-        </form>
-
+        </div>
     </div>
-</div>
 
+</div>
+</div>
 <div th:include="fragments/footer"></div>
 
-</body>
-</html>
+
+
+
