@@ -31,7 +31,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
         redirectStrategy.sendRedirect(request, response, targetUrl);
     }
-
+    //password7663
     /*
      * This method extracts the roles of currently logged-in user and returns
      * appropriate URL according to his/her role.
