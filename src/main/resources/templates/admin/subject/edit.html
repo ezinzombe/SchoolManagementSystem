@@ -1,20 +1,33 @@
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml"
->
-<head>
-    <title id="pageTitle">Edit Subject </title>
-</head>
 
-<div th:include="fragments/header"></div>
-<body class="bg-cyan">
-<br/>
-<br/>
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 
+<th:block th:include="fragments/header"></th:block>
 
-<div class="body">
-    <div id="wrapper">
+<div class="content mt-3">
+    <div class="animated fadeIn">
+        <div class="row">
 
-
-        <form autocomplete="off" class="sky-form" th:object="${subject}" method="post"
+            <div class="breadcrumbs">
+                <div class="col-sm-4">
+                    <div class="page-header float-left">
+                        <div class="page-title">
+                            <h1>Subjects</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="page-header float-right">
+                        <div class="page-title">
+                            <ol class="breadcrumb text-right">
+                                <li><a href="#">Edit</a></li>
+                                <li class="active">Page</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    <form autocomplete="off" class="sky-form" th:object="${subject}" method="post"
               th:action="@{/admin/subject/save}"
               role="form">
 
@@ -58,8 +71,6 @@
 
     </div>
 </div>
-
+</div>
+</div>
 <div th:include="fragments/footer"></div>
-
-</body>
-</html>

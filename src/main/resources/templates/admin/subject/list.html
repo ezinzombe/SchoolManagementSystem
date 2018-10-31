@@ -1,28 +1,37 @@
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml"
->
-<head>
-    <title id="pageTitle">Subject List </title>
-</head>
 
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 
-<body class="bg-cyan">
-<br/>
-<br/>
+<th:block th:include="fragments/header"></th:block>
 
-<div th:include="fragments/header"></div>
-<div class="container" style="opacity: 0.80">
-    <div class="container-fluid">
-        <div class="panel panel-primary">
+<div class="content mt-3">
+    <div class="animated fadeIn">
+        <div class="row">
+
+            <div class="breadcrumbs">
+                <div class="col-sm-4">
+                    <div class="page-header float-left">
+                        <div class="page-title">
+                            <h1>Subjects</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="page-header float-right">
+                        <div class="page-title">
+                            <ol class="breadcrumb text-right">
+                                <li><a href="#">Subject</a></li>
+                                <li class="active">List</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a class="btn btn-primary " th:href="@{/admin/subject/add}">New Subject</a>
 
             <br/>
             <br/>
-
-            <a class="btn btn-default btn-lg" th:href="@{/admin/subject/add}">Add New Subject</a>
-
-            <br/>
-            <br/>
-
-            <div class="panel-heading">Subjects</div>
 
 
             <table id="roleListTable" th:inline="none" cellspacing="0" width="100%" class="table table-striped">
@@ -52,10 +61,6 @@
                 </tbody>
             </table>
 
-        </div>
-    </div>
-</div>
-
 
 <script th:inline="none">
     $(document).ready(function () {
@@ -67,7 +72,9 @@
         });
     });
 </script>
-<div th:include="fragments/footer"></div>
 
-</body>
-</html>
+        </div>
+    </div>
+</div>
+</div>
+            <div th:include="fragments/footer"></div>
