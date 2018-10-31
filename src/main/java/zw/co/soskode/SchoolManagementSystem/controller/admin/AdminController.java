@@ -1,4 +1,4 @@
-package zw.co.soskode.SchoolManagementSystem.controller;
+package zw.co.soskode.SchoolManagementSystem.controller.admin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

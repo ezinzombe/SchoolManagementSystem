@@ -1,4 +1,4 @@
-package zw.co.soskode.SchoolManagementSystem.controller;
+package zw.co.soskode.SchoolManagementSystem.controller.lecturer;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 

@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import zw.co.soskode.SchoolManagementSystem.dto.UserRegistrationDto;
+import zw.co.soskode.SchoolManagementSystem.model.Role;
 import zw.co.soskode.SchoolManagementSystem.model.User;
 import zw.co.soskode.SchoolManagementSystem.repository.RoleRepository;
 import zw.co.soskode.SchoolManagementSystem.service.UserService;
@@ -26,6 +28,9 @@ public class UserRegistrationController {
     private BCryptPasswordEncoder passwordEncoder;
     @Autowired
     private RoleRepository roleRepository;
+//@Autowired
+//private StudentRepository studentRepository;
+
 
     @ModelAttribute("user")
     public UserRegistrationDto userRegistrationDto() {
@@ -40,8 +45,9 @@ public class UserRegistrationController {
 
     @PostMapping
     public String registerUserAccount(@ModelAttribute("user") @Valid UserRegistrationDto userDto,
-                                      BindingResult result, Model model) {
+                                      BindingResult result, Model model, RedirectAttributes redirectAttributes) {
         User user = new User();
+//        Student student = new Student();
         User existing = userService.findByEmail(userDto.getEmail());
         if (existing != null) {
             result.rejectValue("email", null, "There is already an account registered with that email");
@@ -56,8 +62,30 @@ public class UserRegistrationController {
         user.setEmail(userDto.getEmail());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setRoles(userDto.getRoles());
-        userService.save(user);
-        return "redirect:/registration?success";
+        System.out.println("============================ROLES======"+userDto.getRoles());
+
+        for (Role r: userDto.getRoles()) {
+            if(r.getName().toUpperCase().equals("ADMIN")){
+                user.setRoleName("ADMIN");
+                userService.save(user);
+            } else if(r.getName().toUpperCase().equals("STUDENT")){
+                user.setRoleName("STUDENT");
+                userService.save(user);
+            } else if(r.getName().toUpperCase().equals("TEACHER")){
+                user.setRoleName("TEACHER");
+                userService.save(user);
+            }
+            else{
+                user.setRoleName("zombie");
+                userService.save(user);
+            }
+        }
+
+
+
+
+        redirectAttributes.addFlashAttribute("confirmationMessage", "Your Account has been created successfully. A confirmation e-mail has been sent to " + user.getEmail());
+        return "redirect:/login";
     }
 
 }

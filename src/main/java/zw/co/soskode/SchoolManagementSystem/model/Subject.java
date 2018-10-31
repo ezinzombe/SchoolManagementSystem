@@ -1,6 +1,7 @@
 package zw.co.soskode.SchoolManagementSystem.model;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 
 /**
