@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:include="fragments/header"></th:block>
+<div class="breadcrumbs">
+    <div class="col-sm-4">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Dashboard</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right">
+                    <li class="active">Dasboard</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content mt-3">
+
+    <div class="animated fadeIn">
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <strong class="card-title">Teachers List</strong>
+                    </div>
+
+                    <div class="card-body">
+                        <table id="teacherListTable" cellspacing="0" width="100%" class="table table-striped">
+                            <br/>
+                            <div th:if="${param.success}">
+                                <div class="alert alert-info">You've successfully been approved to
+                                    School Management System as a Teacher!!
+                                </div>
+                            </div>
+                            <thead>
+                            <tr>
+                                <th>Teacher Name</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
+                                <th scope="col">Approve</th>
+                                <!--<th scope="col">Update</th>-->
+                                <!--<th scope="col">Delete</th>-->
+
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr th:each="student : ${students}">
+                                <td th:text="${student.firstName}"></td>
+                                <td th:text="${student.lastName}"></td>
+                                <td th:text="${student.email}"></td>
+                                <div th:if="${student.approved} == false">
+                                <td><a th:href="@{'/admin/approve/student/' + ${student.id}}" class="btn btn-warning">Approve</a></h2></td>
+                                </div>
+                                <!--<td><a th:href="@{'/admin/student/update/' + ${student.id}}" class="btn btn-warning">Update</a></h2></td>-->
+                                <!--<td><a th:href="@{'/admin/student/delete/' + ${student.id}}" onclick="return confirm('Are you sure you want to delete this!!!!')" class="btn btn-danger">Delete</a></h2></td>-->
+
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+<script>
+    $('#teacherListTable').DataTable();
+</script>
+
+
+</div>
+</div>
+<div th:include="fragments/footer"></div>

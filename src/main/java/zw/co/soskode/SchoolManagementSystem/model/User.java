@@ -1,11 +1,13 @@
 package zw.co.soskode.SchoolManagementSystem.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
-public class User {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -15,6 +17,9 @@ public class User {
     private String lastName;
     private String email;
     private String password;
+    private Boolean approved = Boolean.FALSE;
+    private String roleName;
+
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
@@ -41,6 +46,23 @@ public class User {
         this.email = email;
         this.password = password;
         this.roles = roles;
+    }
+
+
+    public Boolean getApproved() {
+        return approved;
+    }
+
+    public void setApproved(Boolean approved) {
+        this.approved = approved;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
     public Long getId() {
