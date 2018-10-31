@@ -37,7 +37,7 @@
 
 
 
-                    <form autocomplete="off" class="sky-form" th:object="${user}" method="post" th:action="@{/admin/approve/teacher/save}"
+                    <form autocomplete="off" class="sky-form" th:object="${student}" method="post" th:action="@{/admin/approve/teacher/save}"
                           role="form">
 
                         <header> Teacher Details</header>
@@ -52,7 +52,6 @@
                                 <input type="hidden" th:field="*{id}"/>
                                 <input type="hidden" th:field="*{password}"/>
                                 <input type="hidden" th:field="*{email}"/>
-                                <input type="hidden" th:field="*{roleName}"/>
 
                                 <section>
                                     <div class="row">

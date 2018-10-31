@@ -28,7 +28,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <strong class="card-title">Approve Teacher</strong>
+                        <strong class="card-title">Approve Student</strong>
                     </div>
 
 
@@ -40,7 +40,7 @@
                     <form autocomplete="off" class="sky-form" th:object="${user}" method="post" th:action="@{/admin/approve/student/save}"
                           role="form">
 
-                        <header> Teacher Details</header>
+                        <header> Student Details</header>
 
                         <div th:if="${confirmationMessage}" class="alert alert-success">
                             <p th:text="${confirmationMessage}"></p>
@@ -52,6 +52,7 @@
                                 <input type="hidden" th:field="*{id}"/>
                                 <input type="hidden" th:field="*{password}"/>
                                 <input type="hidden" th:field="*{email}"/>
+                                <input type="hidden" th:field="*{roleName}"/>
 
                                 <section>
                                     <div class="row">
@@ -82,7 +83,7 @@
                                 </section>
 
                                 <div>
-                                    <button type="submit" class="button">Approve Teacher</button>
+                                    <button type="submit" class="button">Approve Student</button>
                                 </div>
 
                                 <div>

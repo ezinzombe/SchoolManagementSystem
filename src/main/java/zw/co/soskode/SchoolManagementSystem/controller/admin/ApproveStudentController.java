@@ -51,10 +51,11 @@ public class ApproveStudentController {
         user.setApproved(true);
 
         userRepository.save(user);
+        userRepository.save(user);
         studentRepository.save(student);
 
-        List<User> teachers = userRepository.findAll();
-        model.addAttribute("teachers", teachers);
+        List<User> students = userRepository.findByRoleName("STUDENT");
+        model.addAttribute("students", students);
         model.addAttribute("confirmationMessage", "Teacher"+student.getUser().getFirstName()+"  has been approved!!!");
         return "admin/approve/student";
     }
