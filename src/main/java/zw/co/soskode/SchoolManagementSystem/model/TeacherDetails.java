@@ -17,6 +17,7 @@ public class TeacherDetails extends BaseEntityId {
 	private String 	joinPosition;
 	private String 	status;
 
+
 	public Long getUserId() {
 		return userId;
 	}
