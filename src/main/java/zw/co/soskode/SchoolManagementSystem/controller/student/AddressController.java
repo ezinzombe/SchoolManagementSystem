@@ -52,9 +52,8 @@ public class AddressController {
 
     }
 
-    @RequestMapping(value = "/save",method = RequestMethod.POST)
-    public String save(@ModelAttribute("address") @Validated Address address,
-                       @RequestParam("id") Long id,
+    @RequestMapping(value = "/save/{id}",method = RequestMethod.POST)
+    public String save(@PathVariable("id") Long id, @ModelAttribute("address") @Validated Address address,
                        BindingResult result, Model model) {
         System.out.println("-----------------------------------------"+id);
         if (result.hasErrors()) {
@@ -63,10 +62,10 @@ public class AddressController {
             model.addAttribute("address", address);
             return "address/add";
         }
-        Student student = studentService.findOne(id).get();
-        address.setStudent(student);
+
+        address.setStudent(studentService.findOne(id).get());
         addressService.save(address);
-        return "redirect:/student/show" + address.getStudent().getId();
+        return "redirect:/student/show/" + address.getStudent().getId();
     }
 
     private void populateDefaultModel(Model model) {

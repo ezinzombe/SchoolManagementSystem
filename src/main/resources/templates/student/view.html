@@ -189,9 +189,9 @@
 
 
                         <form autocomplete="off" class="sky-form" th:object="${address}" method="post"
-                              th:action="@{/address/save}" role="form">
+                              th:action="@{'/address/save/' + ${student.id}}" role="form">
                             <input type="hidden" th:field="*{id}"/>
-                            <input type="hidden" th:field="*{student.id}"/>
+
                             <p th:text="${student.id}"></p>
                             <div class="form-group"><label for="addressLine1" class=" form-control-label">Address Line 1
                                 </label><textarea type="text" id="addressLine1" name="addressLine1" th:field="*{addressLine1}"
