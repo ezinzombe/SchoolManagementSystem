@@ -1,6 +1,7 @@
 package zw.co.soskode.SchoolManagementSystem.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -11,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 
+import zw.co.soskode.SchoolManagementSystem.model.User;
 import zw.co.soskode.SchoolManagementSystem.repository.*;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.security.Principal;
 
 /**
  * Created by zinzombe on Oct
@@ -23,6 +26,8 @@ import javax.servlet.http.HttpServletResponse;
 public class HomeController {
     @Inject
     private StudentRepository studentRepository;
+    @Inject
+    private UserRepository  userRepository;
 
 
     @GetMapping("/")
@@ -62,18 +67,24 @@ public class HomeController {
         return model;
     }
 
-    @RequestMapping(value = {"/lecturerPage"}, method = RequestMethod.GET)
-    public ModelAndView userPage() {
+    @RequestMapping(value = {"/teacherPage"}, method = RequestMethod.GET)
+    public ModelAndView userPage(Principal principal) {
         ModelAndView model = new ModelAndView();
-
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String name = authentication.getName();
+        model.addObject("username", name);
         model.addObject("students",studentRepository.findAll());
-        model.setViewName("lecturer/home");
+
+        model.setViewName("teacher/home");
         return model;
     }
 
     @RequestMapping(value = {"/studentPage"}, method = RequestMethod.GET)
     public ModelAndView studentPage() {
         ModelAndView model = new ModelAndView();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String name = authentication.getName();
+        model.addObject("username", name);
         model.setViewName("student/home");
         return model;
     }
@@ -81,6 +92,9 @@ public class HomeController {
     @RequestMapping(value = {"/adminPage"}, method = RequestMethod.GET)
     public ModelAndView adminPage() {
         ModelAndView model = new ModelAndView();
+         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+         String name = authentication.getName();
+        model.addObject("username", name);
         model.setViewName("admin/home");
         return model;
     }

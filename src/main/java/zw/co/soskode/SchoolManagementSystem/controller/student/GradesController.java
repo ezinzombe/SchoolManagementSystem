@@ -54,16 +54,16 @@ public class GradesController {
 
     }
 
-    @RequestMapping(value = "/save",method = RequestMethod.POST)
-    public String save(@ModelAttribute("address") @Validated Grades grades,
+    @RequestMapping(value = "/save/{id}",method = RequestMethod.POST)
+    public String save(@PathVariable("id") Long id, @ModelAttribute("address") @Validated Grades grades,
                        BindingResult result, Model model) {
-
         if (result.hasErrors()) {
 
             model.addAttribute("student", grades.getStudent());
             model.addAttribute("grades", grades);
             return "grades/add";
         }
+        grades.setStudent(studentService.findOne(id).get());
         gradesRepository.save(grades);
         return "redirect:/student/" + grades.getStudent().getId();
     }

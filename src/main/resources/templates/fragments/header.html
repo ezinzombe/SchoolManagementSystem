@@ -21,6 +21,8 @@
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 
+
+
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
     <script th:src="@{/js/vendor/jquery-2.1.4.min.js}">
     </script>
@@ -55,23 +57,31 @@
 
         <div id="main-menu" class="main-menu collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active">
-                    <a th:href="@{/}"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+
+
+                <li class="active"  sec:authorize="hasAuthority('TEACHER')">
+                    <a th:href="@{/teacherPage}"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+                </li>
+                <li class="active"  sec:authorize="hasAuthority('ADMIN')">
+                    <a th:href="@{/adminPage}"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+                </li>
+                <li class="active"  sec:authorize="hasAuthority('STUDENT')">
+                    <a th:href="@{/studentPage}"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                 </li>
 
-                <li>
+                <li  sec:authorize="hasAuthority('TEACHER')">
                     <a th:href="@{/admin/approve/student}"> <i class="menu-icon fa fa-opera"></i>Approve Student</a>
                 </li>
-                <li sec:authorize="hasRole('ADMIN')">
-                    <a th:href="@{/admin/approve/teacher}"> <i class="menu-icon fa fa-opera"></i>Approve Teacher</a>
+                <li sec:authorize="hasAuthority('ADMIN')">
+                    <a th:href="@{/admin/approve/teacher}"> <i class="menu-icon fa fa-opera"></i>Approve School</a>
                 </li>
 
-                <li sec:authorize="hasRole('TEACHER')">
-                    <a th:href="@{/student/list}"> <i class="menu-icon fa fa-opera"></i>Student</a>
+                <li sec:authorize="hasAuthority('TEACHER')">
+                    <a th:href="@{/teacherPage}"> <i class="menu-icon fa fa-opera"></i>Students</a>
                 </li>
 
 
-                <li>
+                <li sec:authorize="hasAuthority('TEACHER') || hasAuthority('ADMIN')">
                     <a th:href="@{/admin/list}"> <i class="menu-icon fa fa-opera"></i>Configurations</a>
                 </li>
 
@@ -100,6 +110,7 @@
             <div class="col-sm-5">
                 <div class="user-area dropdown float-right">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span th:text="${username}"></span>
                         <img class="user-avatar rounded-circle" src="images/admin.jpg" alt="User Avatar">
                     </a>
                 </div>

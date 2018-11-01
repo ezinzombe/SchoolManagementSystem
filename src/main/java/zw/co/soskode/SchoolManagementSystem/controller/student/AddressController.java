@@ -55,7 +55,6 @@ public class AddressController {
     @RequestMapping(value = "/save/{id}",method = RequestMethod.POST)
     public String save(@PathVariable("id") Long id, @ModelAttribute("address") @Validated Address address,
                        BindingResult result, Model model) {
-        System.out.println("-----------------------------------------"+id);
         if (result.hasErrors()) {
 
             model.addAttribute("student", address.getStudent());
@@ -64,6 +63,7 @@ public class AddressController {
         }
 
         address.setStudent(studentService.findOne(id).get());
+
         addressService.save(address);
         return "redirect:/student/show/" + address.getStudent().getId();
     }

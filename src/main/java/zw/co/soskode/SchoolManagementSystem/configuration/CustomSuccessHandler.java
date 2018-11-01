@@ -47,8 +47,8 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
             roles.add(a.getAuthority());
         }
 
-        if (isLecturer(roles)) {
-            url = "/lecturerPage";
+        if (isTeacher(roles)) {
+            url = "/teacherPage";
         } else if (isAdmin(roles)) {
             url = "/adminPage";
         } else if (isStudent(roles)) {
@@ -74,8 +74,8 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         return false;
     }
 
-    private boolean isLecturer(List<String> roles) {
-        if (roles.contains("LECTURER")) {
+    private boolean isTeacher(List<String> roles) {
+        if (roles.contains("TEACHER")) {
             return true;
         }
         return false;

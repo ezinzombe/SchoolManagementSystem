@@ -30,25 +30,29 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                      <h4 th:text="${userDetail.fullName}"></h4>
+                        <h4 th:text="${userDetail.fullName}"></h4>
                     </div>
                     <div class="card-body">
                         <div class="panel-heading">
 
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Demographic Details</a>
+                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                                       aria-controls="home" aria-selected="true">Demographic Details</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Contact Info</a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a class="nav-link" id="subjects-tab" data-toggle="tab" href="#subjects" role="tab" aria-controls="subjects" aria-selected="false">Subjects Details</a>
+                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                                       aria-controls="profile" aria-selected="false">Contact Info</a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link" id="results-tab" data-toggle="tab" href="#results" role="tab" aria-controls="results" aria-selected="false">Results Details</a>
+                                    <a class="nav-link" id="subjects-tab" data-toggle="tab" href="#subjects" role="tab"
+                                       aria-controls="subjects" aria-selected="false">Subjects Details</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" id="results-tab" data-toggle="tab" href="#results" role="tab"
+                                       aria-controls="results" aria-selected="false">Assignments</a>
                                 </li>
 
 
@@ -56,8 +60,9 @@
                         </div>
                         <div class="panel-body">
                             <div class="tab-content pl-3 p-1" id="myTabContent">
-                                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                                                        <div class="row">
+                                <div class="tab-pane fade show active" id="home" role="tabpanel"
+                                     aria-labelledby="home-tab">
+                                    <div class="row">
                                         <label class="col-sm-2">First Name</label>
                                         <div class="col-sm-10" th:text="${userDetail.firstName}"></div>
                                     </div>
@@ -77,8 +82,8 @@
                                     </div>
 
                                     <!--<div class="row">-->
-                                        <!--<label class="col-sm-2">Class </label>-->
-                                        <!--<div class="col-sm-10" th:text="${student.classes.name}"></div>-->
+                                    <!--<label class="col-sm-2">Class </label>-->
+                                    <!--<div class="col-sm-10" th:text="${student.classes.name}"></div>-->
                                     <!--</div>-->
 
 
@@ -86,8 +91,8 @@
                                 <div class="tab-pane fade" id="subjects" role="tabpanel" aria-labelledby="profile-tab">
 
 
-
-                                    <button type="button" class="btn btn-secondary mb-1" data-toggle="modal" data-target="#contactModal">
+                                    <button type="button" class="btn btn-secondary mb-1" data-toggle="modal"
+                                            data-target="#subjectModal">
                                         New Subject
                                     </button>
                                     <table class="table table-striped">
@@ -102,21 +107,26 @@
                                         </tr>
                                         </thead>
 
-                                            <tr th:each=" grade: ${grades}">
-                                                <td th:text="${grade.id}"></td>
-                                                <td th:text="${grade.mark}"></td>
-                                                <td th:text="${grade.symbolResult}"></td>
+                                        <tr th:each=" grade: ${grades}">
+                                            <td th:text="${grade.subject.name}"></td>
+                                            <td th:text="${grade.mark}"></td>
+                                            <td th:text="${grade.symbolResult}"></td>
 
-                                                <td>
-                                                    <a href="" class="btn btn-info"
-                                                    style="float: right;">Update Result</a>
-                                                </td>
-                                                <td>
-                                                    <a class="btn btn-success btn-danger"
-                                                       href="">Delete</a>
-                                                </td>
+                                            <td>
+                                                <button type="button" name="view" th:id="${grade.id}" class="btn btn-info btn-xs view">View</button>
 
-                                            </tr>
+                                            </td>
+
+                                            <td class='text-center'><a href='#' th:id="${grade.id}" class="aprove"><span
+                                                    class='glyphicon glyphicon-user'
+                                                    aria-hidden='true'>Update Mark</span></a>
+
+                                            <td>
+                                                <a class="btn btn-success btn-danger"
+                                                   href="">Delete</a>
+                                            </td>
+
+                                        </tr>
 
                                     </table>
 
@@ -124,7 +134,8 @@
                                 </div>
                                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="subjects-tab">
 
-                                    <button type="button" class="btn btn-secondary mb-1" data-toggle="modal" data-target="#contactModal">
+                                    <button type="button" class="btn btn-secondary mb-1" data-toggle="modal"
+                                            data-target="#contactModal">
                                         New Contact
                                     </button>
                                     <table class="table table-striped">
@@ -147,8 +158,6 @@
                                             <td th:text="${address.addressType}"></td>
                                             <td th:text="${address.contact}"></td>
                                             <td>
-                                                <a href="" class="btn btn-info"
-                                                   style="float: right;">View</a>
                                             </td>
                                             <td>
                                                 <a class="btn btn-success btn-danger"
@@ -173,11 +182,13 @@
 
     </div>
 </div>
-<div class="modal fade" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+
+<div class="modal fade" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="mediumModalLabel">Contact Add</h5>
+                <h5 class="modal-title" id="">Contact Add</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -191,19 +202,32 @@
                         <form autocomplete="off" class="sky-form" th:object="${address}" method="post"
                               th:action="@{'/address/save/' + ${student.id}}" role="form">
                             <input type="hidden" th:field="*{id}"/>
-
-                            <p th:text="${student.id}"></p>
                             <div class="form-group"><label for="addressLine1" class=" form-control-label">Address Line 1
-                                </label><textarea type="text" id="addressLine1" name="addressLine1" th:field="*{addressLine1}"
-                                                      placeholder="Enter your address line 1" class="form-control"></textarea>
+                            </label><input type="text" id="addressLine1" name="addressLine1" th:field="*{addressLine1}"
+                                           placeholder="Enter your address line 1" class="form-control">
                                 <div th:if="${#fields.hasErrors('addressLine1')}" th:errors="*{addressLine1}"></div>
                             </div>
 
                             <div class="form-group"><label for="addressLine2" class=" form-control-label">Address Line 2
-                            </label><textarea type="text" id="addressLine2" name="addressLine2" th:field="*{addressLine2}"
-                                              placeholder="Enter your address line " class="form-control"></textarea>
+                            </label><input type="text" id="addressLine2" name="addressLine2" th:field="*{addressLine2}"
+                                           placeholder="Enter your address line " class="form-control">
                                 <div th:if="${#fields.hasErrors('addressLine2')}" th:errors="*{addressLine2}"></div>
                             </div>
+
+                            <div class="form-group"><label for="contact" class=" form-control-label">Contact Line
+                            </label><input type="text" id="contact" name="contact" th:field="*{contact}"
+                                           placeholder="Enter your contact line " class="form-control">
+                                <div th:if="${#fields.hasErrors('contact')}" th:errors="*{contact}"></div>
+                            </div>
+                            <!--<div class="form-group">-->
+                            <!--<label>Select Address Type </label>-->
+                            <!--<select class="form-control" th:field="*{addressType}">-->
+                            <!--<option th:each="addressType : ${addressTypes}"-->
+                            <!--th:value="${{addressType.name}}"-->
+                            <!--th:text="${addressType.name}">-->
+                            <!--</option>-->
+                            <!--</select>-->
+                            <!--</div>-->
 
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary btn-sm">
@@ -219,15 +243,113 @@
                     </div>
 
                 </div>
-                </div>
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-primary">Confirm</button>
             </div>
-            </div>
-
         </div>
+
+
     </div>
 </div>
+
+<div class="modal fade" id="subjectModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mediumModalLabel">Subject Add</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+
+                    <div class="card-body card-block">
+
+
+                        <form autocomplete="off" class="sky-form" method="post"
+                              th:action="@{'/grades/save/' + ${student.id}}" role="form">
+                            <input type="hidden" th:field="*{id}"/>
+
+                            <div class="form-group">
+                                <label>Select Subject </label>
+                                <select class="form-control">
+                                    <option th:each="subject : ${subjects}"
+                                            th:value="${{subject.name}}"
+                                            th:text="${subject.name}">
+                                    </option>
+                                </select>
+
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary btn-sm">
+                                    <i class="fa fa-dot-circle-o"></i> Submit
+                                </button>
+                                <button type="reset" class="btn btn-danger btn-sm">
+                                    <i class="fa fa-ban"></i> Reset
+                                </button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary">Confirm</button>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+<div id="productdetailsModal" class="modal fade">
+    <div class="modal-dialog">
+        <form method="post" id="product_form">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"><i class="fa fa-plus"></i> Product Details</h4>
+                </div>
+                <div class="modal-body">
+                    <Div id="product_details"></Div>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+</div>
+
+<script>
+    $(document).on('click', '.view', function(){
+        var grade_id = $(this).attr("id");
+        var btn_action = 'product_details';
+
+        alert();
+
+
+        $.ajax({
+            url:"product_action.php",
+            method:"POST",
+            data:{product_id:product_id, btn_action:btn_action},
+            success:function(data){
+                $('#productdetailsModal').modal('show');
+
+
+                $('#product_details').html(data);
+            }
+        })
+    });
+</script>
 
 <div th:include="fragments/footer"></div>

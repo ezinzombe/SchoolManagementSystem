@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <th:block th:include="fragments/header"></th:block>
 <div class="breadcrumbs">
@@ -27,7 +27,7 @@
 
             <!--/.col-->
 
-            <div class="col-sm-12 mb-4">
+            <div class="col-sm-12 mb-4" sec:authorize=" hasAuthority('ADMIN')">
                 <div class="card-group">
                     <div class="card col-md-6 no-padding ">
                         <div class="card-body">
@@ -71,26 +71,12 @@
                                  style="width: 40%; height: 5px;"></div>
                         </div>
                     </div>
-                    <div class="card col-md-6 no-padding ">
-                        <div class="card-body">
-                            <div class="h1 text-muted text-right mb-4">
-                                <i class="fa fa-pie-chart"></i>
-                                <a class="btn btn-primary" th:href="@{/admin/subject/list}"/> Manage Subjects</a>
-                            </div>
-                            <div class="h4 mb-0">
-                                <span class="count"></span>
-                            </div>
-                            <small class="text-muted text-uppercase font-weight-bold">All Subjects</small>
-                            <div class="progress progress-xs mt-3 mb-0 bg-flat-color-4"
-                                 style="width: 40%; height: 5px;"></div>
-                        </div>
-                    </div>
 
                 </div>
 
             </div>
 
-            <div class="col-sm-12 mb-4">
+            <div class="col-sm-12 mb-4" sec:authorize=" hasAuthority('TEACHER')">
                 <div class="card-group">
                     <div class="card col-md-6 no-padding ">
                         <div class="card-body">
@@ -121,29 +107,18 @@
                     <div class="card col-md-6 no-padding ">
                         <div class="card-body">
                             <div class="h1 text-muted text-right mb-4">
-                                <i class="fa fa-cogs"></i>
-                            </div>
-                            <div class="h4 mb-0">20</div>
-                            <small class="text-muted text-uppercase font-weight-bold">Cities</small>
-                            <div class="progress progress-xs mt-3 mb-0 bg-flat-color-5"
-                                 style="width: 40%; height: 5px;"></div>
-                        </div>
-                    </div>
-                    <div class="card col-md-6 no-padding ">
-                        <div class="card-body">
-                            <div class="h1 text-muted text-right mb-4">
-                                <i class="fa fa-cogs"></i>
-                                <a class="btn btn-primary" th:href="@{/admin/classes/list}"/> Manage Classes</a>
+                                <i class="fa fa-pie-chart"></i>
+                                <a class="btn btn-primary" th:href="@{/lecturerPage}"/> Manage Students</a>
                             </div>
                             <div class="h4 mb-0">
-
-
+                                <span class="count"></span>
                             </div>
-                            <small class="text-muted text-uppercase font-weight-bold">Classes</small>
-                            <div class="progress progress-xs mt-3 mb-0 bg-flat-color-1"
+                            <small class="text-muted text-uppercase font-weight-bold">All Students</small>
+                            <div class="progress progress-xs mt-3 mb-0 bg-flat-color-4"
                                  style="width: 40%; height: 5px;"></div>
                         </div>
                     </div>
+
                 </div>
             </div>
 

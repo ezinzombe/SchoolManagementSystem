@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder authenticationMgr) throws Exception {
         authenticationMgr.inMemoryAuthentication()
-                .withUser("lecturer@lecturer.com").password("lecturer").authorities("LECTURER");
+                .withUser("teacher@teacher.com").password("teacher").authorities("LECTURER");
     }
 
     @Override

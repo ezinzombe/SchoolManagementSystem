@@ -82,14 +82,16 @@ public class StudentController {
             final Student student = studentOptional.get();
             model.addAttribute("title", "Student Detail");
             model.addAttribute("student",student);
-            System.out.println("==================USERRRRR============="+userRepository.findById(student.getUserId()).get());
             model.addAttribute("userDetail", userRepository.findById(student.getUserId()).get());
             model.addAttribute("addressList", addressService.findByStudent(student).orElse(Collections.emptyList()));
             model.addAttribute("address", new Address());
+            model.addAttribute("grades",new Grades());
 
-
-            model.addAttribute("addressType", AddressType.values());
+            model.addAttribute("addressTypes", AddressType.values());
             model.addAttribute("grades",gradesRepository.findByStudent(student));
+
+            System.out.println("------------------------"+subjectRepository.findAll());
+            model.addAttribute("subjects", subjectRepository.findAll());
 
         }
 

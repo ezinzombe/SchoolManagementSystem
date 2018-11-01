@@ -39,8 +39,9 @@
                 <span th:utext="${successMessage}" class="text-success"></span>
                 <thead>
                 <tr>
-                    <th scope="col">Class Name</th>
+
                     <th scope="col">Form</th>
+                    <th scope="col">Date Created</th>
                     <th scope="col">Update</th>
                     <th scope="col">Delete</th>
 
@@ -51,6 +52,7 @@
                 <tr th:each="class : ${classes}">
                     <td th:text="${class.id}"></td>
                     <td th:text="${class.name}"></td>
+                    <td th:text="${class.dateCreated}"></td>
                     <td><a th:href="@{'/admin/classes/update/' + ${class.id}}" class="btn btn-warning">Update</a></h2>
                     </td>
                     <td><a th:href="@{'/admin/classes/delete/' + ${class.id}}"
