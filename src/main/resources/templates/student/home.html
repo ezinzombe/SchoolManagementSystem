@@ -1,77 +1,36 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
-<head>
-    <title>Welcome :: Student</title></ti>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+<html xmlns:th="http://www.thymeleaf.org">
 
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/../../static/css/sky-forms.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/../../static/css/jquery-ui.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/../../static/css/jquery.dataTables.min.css}"/>
-    '
-    <link rel="stylesheet" type="text/css" th:href="@{/../../static/css/bootstrap-grid.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/../../static/css/bootstrap-reboot.css}"/>
+<th:block th:include="fragments/header"></th:block>
 
-    <link rel="stylesheet" th:href="@{/static/css/main.css}"
-          href="../../static/css/main.css" />
-
-    <script type="text/javascript" th:src="@{/static/js/jquery.dataTables.min.js}"></script>
-    <script type="text/javascript" th:src="@{/../../static/js/jquery-3.3.1.min.js/}"></script>
-    <script type="text/javascript" th:src="@{/../../static/js/bootstrap.min.js}"></script>
-</head>
-
-
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed"
-                    data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-                    aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span> <span
-                    class="icon-bar"></span> <span class="icon-bar"></span> <span
-                    class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#" th:href="@{/}">Welcome:: School Management System</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li><a th:href="@{/course/register/{id}}">Register Course</a></li>
-            </ul>
-            <ul class="nav navbar-nav">
-                <li><a th:href="@{/logout}">View Results</a></li>
-            </ul>
-            <ul class="nav navbar-nav">
-                <li><a th:href="@{/logout}">Logout</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-
-
-
-
-
-<body>
-<div class="content-wrapper">
-    <div class="container-fluid">
-        <!-- Breadcrumbs-->
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-                <a href="index.html">Dashboard</a>
-            </li>
-            <li class="breadcrumb-item active">Blank Page</li>
-        </ol>
+<div class="content mt-3">
+    <div class="animated fadeIn">
         <div class="row">
-            <div class="col-12">
-                <h1>Blank</h1>
-                <p>This is the student  homepage.</p>
+
+            <div class="breadcrumbs">
+                <div class="col-sm-4">
+                    <div class="page-header float-left">
+                        <div class="page-title">
+                            <h1> Dashbord</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="page-header float-right">
+                        <div class="page-title">
+                            <ol class="breadcrumb text-right">
+                                <li><a href="#">Student</a></li>
+                                <li class="active">View</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+
         </div>
     </div>
 </div>
+</div>
 
-</body>
 <div th:include="fragments/footer"></div>

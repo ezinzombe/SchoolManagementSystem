@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 
+import zw.co.soskode.SchoolManagementSystem.model.Student;
 import zw.co.soskode.SchoolManagementSystem.model.User;
 import zw.co.soskode.SchoolManagementSystem.repository.*;
 import javax.inject.Inject;
@@ -84,8 +85,16 @@ public class HomeController {
         ModelAndView model = new ModelAndView();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String name = authentication.getName();
+
         model.addObject("username", name);
-        model.setViewName("student/home");
+        User user=userRepository.findByEmail(name);
+
+        Student student= studentRepository.findByUserId(user.getId());
+
+        System.out.println("---------------------------------------"+student);
+
+
+        model.setViewName("redirect:/student/show/"+ student.getId());
         return model;
     }
 
