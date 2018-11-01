@@ -1,64 +1,56 @@
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml"
->
-<head>
-    <title id="pageTitle">Edit School </title>
-</head>
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 
-<div th:include="fragments/header"></div>
-<body class="bg-cyan">
-<br/>
-<br/>
+<th:block th:include="fragments/header"></th:block>
+
+<div class="content mt-3">
+    <div class="animated fadeIn">
+        <div class="row">
+
+            <div class="col-md-2"></div>
+
+            <div class="col-md-8">
+
+                <div class="card">
+                    <div class="card-header"><strong>School</strong>
+                        <small> Form</small>
+
+                        <div class="card-body card-block">
 
 
-<div class="body">
-    <div id="wrapper">
-
-
-        <form autocomplete="off" class="sky-form" th:object="${school}" method="post" th:action="@{/admin/school/save}"
-              role="form">
-
-            <header> School Details</header>
-
-            <div>
-                <fieldset>
-
-                    <input type="hidden" th:field="*{id}"/>
-
-                    <section>
-                        <div class="row">
-                            <div class="col col-5">
-                                <label class="input">
-                                    <i class="icon-append icon-user"></i>
-                                    <input type="text" id="name" name="name" th:field="*{name}"
-                                           required=""
-                                           placeholder="Enter School Name "/>
-                                    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Title error message
+                                <form autocomplete="off" class="sky-form" th:object="${school}" method="post" th:action="@{/admin/school/save}" role="form">
+                                    <input type="hidden" th:field="*{id}"/>
+                                    <div class="form-group"><label for="name" class=" form-control-label">School
+                                        Name</label><input type="text" id="name" name="name" th:field="*{name}"
+                                                           placeholder="Enter your subject name" class="form-control">
+                                        <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
                                     </div>
-                                </label>
-                            </div>
-                        </div>
-                    </section>
 
-                    <div>
-                        <button type="submit" class="button">Update School Details</button>
+
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary btn-sm">
+                                            <i class="fa fa-dot-circle-o"></i> Submit
+                                        </button>
+                                        <button type="reset" class="btn btn-danger btn-sm">
+                                            <a th:href="@{/admin/list}"> <i class="fa fa-ban"></i> Reset</a>
+
+                                        </button>
+                                    </div>
+
+                                </form>
+                                <span th:utext="${successMessage}"></span>
+
+
                     </div>
-
-                    <div>
-                        <a th:href="@{/admin/list}" class="buttonLeftCancel">Cancel</a>
-                    </div>
-                    </footer>
-
-                </fieldset>
+                </div>
             </div>
 
-            <span th:utext="${successMessage}"></span>
 
-        </form>
+            <div class="col-md-2"></div>
+        </div>
 
     </div>
 </div>
-
+</div>
+</div>
 <div th:include="fragments/footer"></div>
-
-</body>
-</html>

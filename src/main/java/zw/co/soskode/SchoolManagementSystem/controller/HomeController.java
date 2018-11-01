@@ -9,9 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import zw.co.soskode.SchoolManagementSystem.repository.StudentRepository;
-import zw.co.soskode.SchoolManagementSystem.service.StudentService;
 
+
+import zw.co.soskode.SchoolManagementSystem.repository.*;
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,9 +21,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Controller
 public class HomeController {
-
-    @Autowired
+    @Inject
     private StudentRepository studentRepository;
+
 
     @GetMapping("/")
     public String root() {

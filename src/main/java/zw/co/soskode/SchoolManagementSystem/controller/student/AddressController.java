@@ -37,7 +37,7 @@ public class AddressController {
     @RequestMapping(value = "/{id}/add", method = RequestMethod.GET)
     public String add(@PathVariable("id") Long id, Model model) {
 
-        logger.debug("medical aid - add() is executed!");
+        logger.debug("address aid - add() is executed!");
 
         Address address = new Address();
         Optional<Student> studentOptional = studentService.findOne(id);

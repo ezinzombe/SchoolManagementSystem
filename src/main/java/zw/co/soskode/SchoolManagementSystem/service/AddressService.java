@@ -8,5 +8,5 @@ import java.util.Optional;
 
 public interface AddressService extends IService<Address> {
 
-    Optional<List<Address>> findByStudentDetails(Student studentDetails);
+    Optional<List<Address>> findByStudent(Student student);
 }

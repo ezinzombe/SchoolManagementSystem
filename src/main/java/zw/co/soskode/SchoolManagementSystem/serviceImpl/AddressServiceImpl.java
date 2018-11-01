@@ -15,8 +15,8 @@ public class AddressServiceImpl implements AddressService {
     @Autowired
     private AddressRepository addressRepository;
     @Override
-    public Optional<List<Address>> findByStudentDetails(Student student) {
-        return Optional.ofNullable((List<Address>) addressRepository.findByStudent(student));
+    public Optional<List<Address>> findByStudent(Student student) {
+        return Optional.ofNullable(addressRepository.findByStudent(student));
     }
 
     @Override

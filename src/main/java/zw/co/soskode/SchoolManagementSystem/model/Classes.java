@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "address")
+@Table(name = "classes")
 public class Classes extends BaseEntityId {
 
     private String name;
