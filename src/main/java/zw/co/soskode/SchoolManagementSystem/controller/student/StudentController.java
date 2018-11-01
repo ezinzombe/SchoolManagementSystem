@@ -85,7 +85,7 @@ public class StudentController {
             model.addAttribute("userDetail", userRepository.findById(student.getUserId()).get());
             model.addAttribute("addressList", addressService.findByStudent(student).orElse(Collections.emptyList()));
             model.addAttribute("address", new Address());
-            model.addAttribute("grades",new Grades());
+            model.addAttribute("newGrade",new Grades());
 
             model.addAttribute("addressTypes", AddressType.values());
             model.addAttribute("grades",gradesRepository.findByStudent(student));

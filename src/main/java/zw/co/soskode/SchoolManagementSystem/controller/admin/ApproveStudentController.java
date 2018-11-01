@@ -6,13 +6,19 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import zw.co.soskode.SchoolManagementSystem.model.Role;
 import zw.co.soskode.SchoolManagementSystem.model.Student;
 import zw.co.soskode.SchoolManagementSystem.model.User;
+import zw.co.soskode.SchoolManagementSystem.repository.RoleRepository;
 import zw.co.soskode.SchoolManagementSystem.repository.StudentRepository;
 import zw.co.soskode.SchoolManagementSystem.repository.UserRepository;
+import zw.co.soskode.SchoolManagementSystem.service.UserService;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
 
 /**
  * Created by zinzombe on Oct
@@ -25,6 +31,10 @@ public class ApproveStudentController {
     private UserRepository userRepository;
     @Autowired
     private StudentRepository studentRepository;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private RoleRepository roleRepository;
 
     @GetMapping("/student")
     public String list(Model model) {
@@ -43,18 +53,25 @@ public class ApproveStudentController {
     public String add(@ModelAttribute("user") @Validated User user, Model model, RedirectAttributes redirectAttributes) {
         System.out.println("=================================="+user);
         final Student student = new Student();
+        final User updatedUser = userRepository.getOne(user.getId());
+        final  Role studentRole = roleRepository.findRoleByName("STUDENT");
         student.setUser(user);
         student.setUserId(user.getId());
         student.setDateCreated(new Date());
-        user.setApproved(true);
+        updatedUser.setApproved(true);
+        updatedUser.setRoles(user.getRoles());
+        updatedUser.setFirstName(user.getFirstName());
+        updatedUser.setLastName(user.getLastName());
+        updatedUser.setEmail(user.getEmail());
+        updatedUser.setPassword((user.getPassword()));
+        updatedUser.setRoleName(user.getRoleName());
+        updatedUser.setRoles(Arrays.asList(studentRole));
 
-        userRepository.save(user);
-        userRepository.save(user);
         studentRepository.save(student);
 
         List<User> students = userRepository.findByRoleName("STUDENT");
         model.addAttribute("students", students);
-        model.addAttribute("confirmationMessage", "Teacher"+student.getUser().getFirstName()+"  has been approved!!!");
+        model.addAttribute("confirmationMessage", "STUDENT:: "+student.getUser().getFirstName()+"  has been approved!!!");
         return "admin/approve/student";
     }
 

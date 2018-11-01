@@ -20,7 +20,6 @@ public class User implements Serializable {
     private Boolean approved = Boolean.FALSE;
     private String roleName;
 
-
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "users_roles",

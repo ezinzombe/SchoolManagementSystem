@@ -54,6 +54,14 @@
                                     <a class="nav-link" id="results-tab" data-toggle="tab" href="#results" role="tab"
                                        aria-controls="results" aria-selected="false">Assignments</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="uploadAssignments-tab" data-toggle="tab" href="#results" role="tab"
+                                       aria-controls="results" aria-selected="false">Upload Assignments</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="studentAssignments-tab" data-toggle="tab" href="#results" role="tab"
+                                       aria-controls="results" aria-selected="false">My Students Assignments</a>
+                                </li>
 
 
                             </ul>
@@ -108,7 +116,7 @@
                                         </thead>
 
                                         <tr th:each=" grade: ${grades}">
-                                            <td th:text="${grade.subject.name}"></td>
+                                            <!--<td th:text="${grade.subject.name}"></td>-->
                                             <td th:text="${grade.mark}"></td>
                                             <td th:text="${grade.symbolResult}"></td>
 
@@ -259,7 +267,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="mediumModalLabel">Subject Add</h5>
+                <h5 class="modal-title" id="">Subject Add</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -270,20 +278,33 @@
                     <div class="card-body card-block">
 
 
-                        <form autocomplete="off" class="sky-form" method="post"
+                        <form autocomplete="off" class="sky-form" th:object="${newGrade}" method="post"
                               th:action="@{'/grades/save/' + ${student.id}}" role="form">
                             <input type="hidden" th:field="*{id}"/>
 
                             <div class="form-group">
                                 <label>Select Subject </label>
-                                <select class="form-control">
+                                <select class="form-control" th:field="*{subject}">
                                     <option th:each="subject : ${subjects}"
                                             th:value="${{subject.name}}"
                                             th:text="${subject.name}">
                                     </option>
                                 </select>
-
                             </div>
+
+                            <div class="form-group"><label for="mark" class=" form-control-label">Address Line 1
+                            </label><input type="text" id="mark" name="mark" th:field="*{mark}"
+                                           placeholder="Enter mark " class="form-control">
+                                <div th:if="${#fields.hasErrors('mark')}" th:errors="*{mark}"></div>
+                            </div>
+
+                            <div class="form-group"><label for="symbolResult" class=" form-control-label">Symbol Result:
+                            </label><input type="text" id="symbolResult" name="symbolResult" th:field="*{symbolResult}"
+                                           placeholder="Enter symbol Result " class="form-control">
+                                <div th:if="${#fields.hasErrors('symbolResult')}" th:errors="*{symbolResult}"></div>
+                            </div>
+
+
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary btn-sm">
                                     <i class="fa fa-dot-circle-o"></i> Submit
@@ -294,7 +315,9 @@
                             </div>
 
                         </form>
+
                     </div>
+
                 </div>
             </div>
             <div class="modal-footer">

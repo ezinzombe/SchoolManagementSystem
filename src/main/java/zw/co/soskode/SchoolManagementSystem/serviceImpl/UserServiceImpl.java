@@ -46,7 +46,10 @@ public class UserServiceImpl implements UserService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email);
         if (user == null) {
-            throw new UsernameNotFoundException("Invalid username or password.");
+            throw new UsernameNotFoundException("Invalid username or password. Please consult you Admin if accoun has been approved!!");
+        }
+        if(user.getApproved().equals(false)){
+            throw new UsernameNotFoundException("Account Not yet Approved, Please consult your Admin");
         }
         return new org.springframework.security.core.userdetails.User(user.getEmail(),
                 user.getPassword(),

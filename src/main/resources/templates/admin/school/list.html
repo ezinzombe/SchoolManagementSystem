@@ -41,8 +41,9 @@
                             <span th:utext="${successMessage}" class="text-success"></span>
                             <thead>
                             <tr>
-                                <th scope="col">School ID</th>
                                 <th scope="col">School Name</th>
+                                <th scope="col">Centre Number</th>
+                                <th scope="col">Province</th>
                                 <th scope="col">Update</th>
                                 <th scope="col">Delete</th>
 
@@ -51,8 +52,9 @@
 
                             <tbody>
                             <tr th:each="school : ${schools}">
-                                <td th:text="${school.id}"></td>
                                 <td th:text="${school.name}"></td>
+                                <td th:text="${school.centerNumber}"></td>
+                                <!--<td th:text="${school.province.name}"></td>-->
                                 <td><a th:href="@{'/admin/school/update/' + ${school.id}}" class="btn btn-warning">Update</a></h2>
                                 </td>
                                 <td><a th:href="@{'/admin/school/delete/' + ${school.id}}"

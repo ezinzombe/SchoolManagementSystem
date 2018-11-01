@@ -33,26 +33,26 @@ public class GradesController {
     private StudentService studentService;
 
 
-    @RequestMapping(value = "/{id}/add", method = RequestMethod.GET)
-    public String add(@PathVariable("id") Long id, Model model) {
+//    @RequestMapping(value = "/{id}/add", method = RequestMethod.GET)
+//    public String add(@PathVariable("id") Long id, Model model) {
+//
+//        logger.debug("grade - add() is executed!");
+//
+//        Grades grades = new Grades();
+//        Optional<Student> studentOptional = studentService.findOne(id);
+//        final Student student = studentOptional.get();
+//        if (studentOptional.isPresent()) {
+//            grades.setStudent(student);
+//        } else {
+//            throw new IllegalArgumentException();
+//        }
+//
+//        model.addAttribute("student", student);
+//        model.addAttribute("grades", grades);
+//
+//        return "grades/add";
 
-        logger.debug("grade - add() is executed!");
 
-        Grades grades = new Grades();
-        Optional<Student> studentOptional = studentService.findOne(id);
-        final Student student = studentOptional.get();
-        if (studentOptional.isPresent()) {
-            grades.setStudent(student);
-        } else {
-            throw new IllegalArgumentException();
-        }
-
-        model.addAttribute("student", student);
-        model.addAttribute("grades", grades);
-
-        return "grades/add";
-
-    }
 
     @RequestMapping(value = "/save/{id}",method = RequestMethod.POST)
     public String save(@PathVariable("id") Long id, @ModelAttribute("address") @Validated Grades grades,

@@ -1,4 +1,4 @@
-package zw.co.soskode.SchoolManagementSystem.controller;
+package zw.co.soskode.SchoolManagementSystem.controller.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,17 +8,21 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import zw.co.soskode.SchoolManagementSystem.model.Province;
 import zw.co.soskode.SchoolManagementSystem.model.School;
 import zw.co.soskode.SchoolManagementSystem.repository.SchoolRepository;
 
+import javax.persistence.Entity;
 import java.util.List;
 
 /**
- * Created by zinzombe on Oct
+ * Created by zinzombe on Nov
  */
+
 @Controller
 @RequestMapping("/admin/school")
-public class SchoolController {
+public class ApproveSchoolController {
+
 
     @Autowired
     private SchoolRepository schoolRepository;
@@ -33,6 +37,7 @@ public class SchoolController {
         }
         model.addAttribute("school", school);
         model.addAttribute("title", "Create/ Edit School");
+        model.addAttribute("provinces", Province.values());
         return "admin/school/add";
     }
 
@@ -61,6 +66,7 @@ public class SchoolController {
     @RequestMapping("/update/{id}")
     public String edit(@PathVariable Long id, Model model) {
         model.addAttribute("school", schoolRepository.findById(id).get());
+        model.addAttribute("provinces", Province.values());
         return "admin/school/edit";
     }
 
@@ -70,5 +76,4 @@ public class SchoolController {
         schoolRepository.deleteById(schoolId);
         return "redirect:/admin/school/list";
     }
-
 }

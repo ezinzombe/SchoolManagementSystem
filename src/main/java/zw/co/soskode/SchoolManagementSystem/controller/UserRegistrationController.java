@@ -67,6 +67,7 @@ public class UserRegistrationController {
         for (Role r: userDto.getRoles()) {
             if(r.getName().toUpperCase().equals("ADMIN")){
                 user.setRoleName("ADMIN");
+                user.setApproved(true);
                 userService.save(user);
             } else if(r.getName().toUpperCase().equals("STUDENT")){
                 user.setRoleName("STUDENT");

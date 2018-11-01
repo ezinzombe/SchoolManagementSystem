@@ -72,7 +72,7 @@
                     <a th:href="@{/admin/approve/student}"> <i class="menu-icon fa fa-opera"></i>Approve Student</a>
                 </li>
                 <li sec:authorize="hasAuthority('ADMIN')">
-                    <a th:href="@{/admin/approve/teacher}"> <i class="menu-icon fa fa-opera"></i>Approve School</a>
+                    <a th:href="@{/admin/school/list}"> <i class="menu-icon fa fa-opera"></i>Manage Schools</a>
                 </li>
 
                 <li sec:authorize="hasAuthority('TEACHER')">

@@ -8,4 +8,6 @@ import zw.co.soskode.SchoolManagementSystem.model.Role;
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Long> {
 
+
+    Role findRoleByName(String name);
 }

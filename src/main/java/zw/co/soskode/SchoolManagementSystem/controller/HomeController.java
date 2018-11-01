@@ -88,12 +88,8 @@ public class HomeController {
 
         model.addObject("username", name);
         User user=userRepository.findByEmail(name);
-
-        Student student= studentRepository.findByUserId(user.getId());
-
+        Student student= studentRepository.findByUserId(Long.valueOf(user.getId()));
         System.out.println("---------------------------------------"+student);
-
-
         model.setViewName("redirect:/student/show/"+ student.getId());
         return model;
     }

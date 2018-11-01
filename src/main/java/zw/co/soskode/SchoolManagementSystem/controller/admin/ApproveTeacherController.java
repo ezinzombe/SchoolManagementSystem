@@ -6,11 +6,14 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import zw.co.soskode.SchoolManagementSystem.model.Role;
 import zw.co.soskode.SchoolManagementSystem.model.TeacherDetails;
 import zw.co.soskode.SchoolManagementSystem.model.User;
+import zw.co.soskode.SchoolManagementSystem.repository.RoleRepository;
 import zw.co.soskode.SchoolManagementSystem.repository.TeacherRepository;
 import zw.co.soskode.SchoolManagementSystem.repository.UserRepository;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -25,6 +28,8 @@ public class ApproveTeacherController {
     private UserRepository userRepository;
     @Autowired
     private TeacherRepository teacherRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
     @GetMapping("/teacher")
     public String list(Model model) {
@@ -43,12 +48,20 @@ public class ApproveTeacherController {
     public String add(@ModelAttribute("user") @Validated User user, Model model, RedirectAttributes redirectAttributes) {
         final TeacherDetails teacherDetails = new TeacherDetails();
         User updatedUser = new User();
+        final Role studentRole = roleRepository.findRoleByName("TEACHER");
         teacherDetails.setUser(user);
         teacherDetails.setUserId(user.getId());
         teacherDetails.setDateCreated(new Date());
-        user.setApproved(true);
 
-        userRepository.save(user);
+        updatedUser.setApproved(true);
+        updatedUser.setRoles(user.getRoles());
+        updatedUser.setFirstName(user.getFirstName());
+        updatedUser.setLastName(user.getLastName());
+        updatedUser.setEmail(user.getEmail());
+        updatedUser.setPassword((user.getPassword()));
+        updatedUser.setRoleName(user.getRoleName());
+        updatedUser.setRoles(Arrays.asList(studentRole));
+        userRepository.save(updatedUser);
         teacherRepository.save(teacherDetails);
 
         List<User> teachers = userRepository.findAll();
