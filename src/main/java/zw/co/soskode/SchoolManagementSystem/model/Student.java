@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -21,6 +22,25 @@ public class Student extends  BaseEntityId{
     private Classes classes;
     private List<Address> addresses;
     private List<Grades> grades;
+    private Date dateOfBirth;
+    private String gender;
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    @Temporal(TemporalType.DATE)
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
 
     @OneToMany(mappedBy = "student")
     @JsonIgnore
@@ -65,6 +85,7 @@ public class Student extends  BaseEntityId{
     public void setUserId(Long userId) {
         this.userId = userId;
     }
+
     @OneToOne(fetch=FetchType.LAZY)
     @PrimaryKeyJoinColumn
     public User getUser() {
@@ -75,5 +96,10 @@ public class Student extends  BaseEntityId{
         this.user = user;
     }
 
-
+    @Override
+    public String toString() {
+        return "Student{" +
+                "user=" + user +
+                '}';
+    }
 }

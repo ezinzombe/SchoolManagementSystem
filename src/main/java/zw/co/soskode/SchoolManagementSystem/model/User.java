@@ -120,8 +120,16 @@ public class User implements Serializable {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", password='" + "*********" + '\'' +
+                ", password='" + password + '\'' +
+                ", approved=" + approved +
+                ", roleName='" + roleName + '\'' +
                 ", roles=" + roles +
                 '}';
     }
+
+    @Transient
+    public String getFullName() {
+        return lastName + " " + firstName;
+    }
+
 }

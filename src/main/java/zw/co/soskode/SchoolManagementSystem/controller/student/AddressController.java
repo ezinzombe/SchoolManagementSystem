@@ -7,10 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import zw.co.soskode.SchoolManagementSystem.model.Address;
 import zw.co.soskode.SchoolManagementSystem.model.AddressType;
 import zw.co.soskode.SchoolManagementSystem.model.Student;
@@ -34,7 +31,7 @@ public class AddressController {
     private StudentService studentService;
 
 
-    @RequestMapping(value = "/{id}/add", method = RequestMethod.GET)
+    @RequestMapping(value = "/add/{id}", method = RequestMethod.GET)
     public String add(@PathVariable("id") Long id, Model model) {
 
         logger.debug("address aid - add() is executed!");
@@ -57,22 +54,20 @@ public class AddressController {
 
     @RequestMapping(value = "/save",method = RequestMethod.POST)
     public String save(@ModelAttribute("address") @Validated Address address,
+                       @RequestParam("id") Long id,
                        BindingResult result, Model model) {
-
+        System.out.println("-----------------------------------------"+id);
         if (result.hasErrors()) {
 
             model.addAttribute("student", address.getStudent());
             model.addAttribute("address", address);
             return "address/add";
         }
+        Student student = studentService.findOne(id).get();
+        address.setStudent(student);
         addressService.save(address);
-        return "redirect:/student/" + address.getStudent().getId();
+        return "redirect:/student/show" + address.getStudent().getId();
     }
-
-
-
-
-
 
     private void populateDefaultModel(Model model) {
         model.addAttribute("addressTypeList", AddressType.values());

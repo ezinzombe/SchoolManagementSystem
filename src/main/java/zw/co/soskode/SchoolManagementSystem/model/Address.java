@@ -1,6 +1,7 @@
 package zw.co.soskode.SchoolManagementSystem.model;
 
 import javax.persistence.*;
+import javax.xml.stream.util.StreamReaderDelegate;
 
 @Entity
 @Table(name = "address")
@@ -10,6 +11,15 @@ public class Address extends BaseEntityId {
     private String addressLine1;
     private String addressLine2;
     private AddressType addressType;
+    private String contact;
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
 
     @ManyToOne
     public Student getStudent() {

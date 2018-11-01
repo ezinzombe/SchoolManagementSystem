@@ -9,10 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import zw.co.soskode.SchoolManagementSystem.model.Address;
-import zw.co.soskode.SchoolManagementSystem.model.Student;
-import zw.co.soskode.SchoolManagementSystem.model.Subject;
-import zw.co.soskode.SchoolManagementSystem.model.User;
+import zw.co.soskode.SchoolManagementSystem.model.*;
 import zw.co.soskode.SchoolManagementSystem.repository.GradesRepository;
 import zw.co.soskode.SchoolManagementSystem.repository.StudentRepository;
 import zw.co.soskode.SchoolManagementSystem.repository.SubjectRepository;
@@ -84,7 +81,14 @@ public class StudentController {
 
             final Student student = studentOptional.get();
             model.addAttribute("title", "Student Detail");
-            model.addAttribute("addressList", addressService.findByStudent(student).orElse(Collections.<Address>emptyList()));
+            model.addAttribute("student",student);
+            System.out.println("==================USERRRRR============="+userRepository.findById(student.getUserId()).get());
+            model.addAttribute("userDetail", userRepository.findById(student.getUserId()).get());
+            model.addAttribute("addressList", addressService.findByStudent(student).orElse(Collections.emptyList()));
+            model.addAttribute("address", new Address());
+
+
+            model.addAttribute("addressType", AddressType.values());
             model.addAttribute("grades",gradesRepository.findByStudent(student));
 
         }
