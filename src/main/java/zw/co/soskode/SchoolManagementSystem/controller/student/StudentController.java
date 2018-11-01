@@ -72,7 +72,7 @@ public class StudentController {
     }
 
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/show/{id}", method = RequestMethod.GET)
     public String show(@PathVariable("id") Long id, Model model) {
 
         Optional<Student> studentOptional = studentRepository.findById(id);
