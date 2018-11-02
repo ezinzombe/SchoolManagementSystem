@@ -53,6 +53,7 @@ public class ApproveTeacherController {
         teacherDetails.setUserId(user.getId());
         teacherDetails.setDateCreated(new Date());
 
+
         updatedUser.setApproved(true);
         updatedUser.setRoles(user.getRoles());
         updatedUser.setFirstName(user.getFirstName());

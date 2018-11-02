@@ -2,6 +2,7 @@ package zw.co.soskode.SchoolManagementSystem.dto;
 
 import zw.co.soskode.SchoolManagementSystem.constraint.FieldMatch;
 import zw.co.soskode.SchoolManagementSystem.model.Role;
+import zw.co.soskode.SchoolManagementSystem.model.School;
 
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Email;
@@ -39,6 +40,16 @@ public class UserRegistrationDto {
     private Boolean terms;
 
     private Collection<Role> roles;
+
+    private School school;
+
+    public School getSchool() {
+        return school;
+    }
+
+    public void setSchool(School school) {
+        this.school = school;
+    }
 
     public Collection<Role> getRoles() {
         return roles;

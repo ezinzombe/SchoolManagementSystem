@@ -16,6 +16,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 public class Student extends  BaseEntityId{
 
 	private static final long serialVersionUID = -5457596000511194801L;
+    private School school;
 	private Long userId;
 	private User  user;
     private String firstName;
@@ -27,7 +28,25 @@ public class Student extends  BaseEntityId{
     private List<Grades> grades;
     private Date dateOfBirth;
     private String gender;
+    private Set<Assignment> assignments = new HashSet<>();
 
+    @ManyToOne
+    public School getSchool() {
+        return school;
+    }
+
+    public void setSchool(School school) {
+        this.school = school;
+    }
+
+    @OneToMany(mappedBy = "student")
+    public Set<Assignment> getAssignments() {
+        return assignments;
+    }
+
+    public void setAssignments(Set<Assignment> assignments) {
+        this.assignments = assignments;
+    }
 
     public String getFirstName() {
         return firstName;

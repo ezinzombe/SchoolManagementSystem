@@ -61,6 +61,7 @@ public class ApproveStudentController {
         student.setDateCreated(new Date());
         student.setFirstName(user.getFirstName());
         student.setLastName(user.getLastName());
+        student.setSchool(user.getSchool());
 //        =============UPDATING THE USER NOW===================
         updatedUser.setApproved(true);
         updatedUser.setRoles(user.getRoles());

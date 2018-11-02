@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 
+import zw.co.soskode.SchoolManagementSystem.model.School;
 import zw.co.soskode.SchoolManagementSystem.model.Student;
+import zw.co.soskode.SchoolManagementSystem.model.TeacherDetails;
 import zw.co.soskode.SchoolManagementSystem.model.User;
 import zw.co.soskode.SchoolManagementSystem.repository.*;
 import javax.inject.Inject;
@@ -29,7 +31,10 @@ public class HomeController {
     private StudentRepository studentRepository;
     @Inject
     private UserRepository  userRepository;
-
+    @Autowired
+    private SchoolRepository schoolRepository;
+    @Autowired
+    private TeacherRepository teacherRepository;
 
     @GetMapping("/")
     public String root() {
@@ -73,9 +78,14 @@ public class HomeController {
         ModelAndView model = new ModelAndView();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String name = authentication.getName();
-        model.addObject("username", name);
-        model.addObject("students",studentRepository.findAll());
+        TeacherDetails teacherDetails = teacherRepository.findByEmail(name);
+        System.out.println("=======================NAME++==================" + name);
+        System.out.println("=======================TEACHER++==================" + teacherDetails);
+        School school = schoolRepository.getOne(teacherDetails.getSchool().getId());
 
+        System.out.println("=======================SCHOOL++==================" + school);
+        model.addObject("username", name);
+        model.addObject("students", studentRepository.findAllBySchool(school));
         model.setViewName("teacher/home");
         return model;
     }
@@ -94,16 +104,35 @@ public class HomeController {
         return model;
     }
 
+    @RequestMapping(value = {"/isCUTAdmin"}, method = RequestMethod.GET)
+    public ModelAndView isCUTAdmin() {
+        ModelAndView model = new ModelAndView();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String name = authentication.getName();
+        model.addObject("username", name);
+        model.setViewName("cutAdmin/home");
+        return model;
+    }
+
+    @RequestMapping(value = {"/registrarPage"}, method = RequestMethod.GET)
+    public ModelAndView isRegistarPage() {
+        ModelAndView model = new ModelAndView();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String name = authentication.getName();
+        model.addObject("username", name);
+        model.setViewName("registrar/home");
+        return model;
+    }
+
     @RequestMapping(value = {"/adminPage"}, method = RequestMethod.GET)
     public ModelAndView adminPage() {
         ModelAndView model = new ModelAndView();
-         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-         String name = authentication.getName();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String name = authentication.getName();
         model.addObject("username", name);
         model.setViewName("admin/home");
         return model;
     }
-
 
 
 

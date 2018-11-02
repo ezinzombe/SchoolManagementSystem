@@ -19,6 +19,16 @@ public class User implements Serializable {
     private String password;
     private Boolean approved = Boolean.FALSE;
     private String roleName;
+    private School school;
+
+    @ManyToMany
+    public School getSchool() {
+        return school;
+    }
+
+    public void setSchool(School school) {
+        this.school = school;
+    }
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(

@@ -14,6 +14,7 @@ import zw.co.soskode.SchoolManagementSystem.dto.UserRegistrationDto;
 import zw.co.soskode.SchoolManagementSystem.model.Role;
 import zw.co.soskode.SchoolManagementSystem.model.User;
 import zw.co.soskode.SchoolManagementSystem.repository.RoleRepository;
+import zw.co.soskode.SchoolManagementSystem.repository.SchoolRepository;
 import zw.co.soskode.SchoolManagementSystem.service.UserService;
 
 import javax.validation.Valid;
@@ -30,6 +31,8 @@ public class UserRegistrationController {
     private RoleRepository roleRepository;
 //@Autowired
 //private StudentRepository studentRepository;
+@Autowired
+private SchoolRepository schoolRepository;
 
 
     @ModelAttribute("user")
@@ -40,6 +43,7 @@ public class UserRegistrationController {
     @GetMapping
     public String showRegistrationForm(Model model) {
         model.addAttribute("roles", roleRepository.findAll());
+        model.addAttribute("schools", schoolRepository.findAll());
         return "registration/registration";
     }
 

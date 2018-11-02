@@ -53,6 +53,10 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
             url = "/adminPage";
         } else if (isStudent(roles)) {
             url = "/studentPage";
+        } else if (isCUTAdmin(roles)) {
+            url = "/cutAdminPage";
+        } else if (isSchoolRegistrar(roles)) {
+            url = "/registrarPage";
         } else {
             url = "/accessDenied";
         }
@@ -60,6 +64,19 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         return url;
     }
 
+    private boolean isSchoolRegistrar(List<String> roles) {
+        if (roles.contains("REGISTRAR")) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isCUTAdmin(List<String> roles) {
+        if (roles.contains("CUTADMIN")) {
+            return true;
+        }
+        return false;
+    }
     private boolean isStudent(List<String> roles) {
         if (roles.contains("STUDENT")) {
             return true;

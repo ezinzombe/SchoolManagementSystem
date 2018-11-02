@@ -9,4 +9,5 @@ import zw.co.soskode.SchoolManagementSystem.model.User;
 @Repository
 public interface TeacherRepository extends JpaRepository<TeacherDetails, Long> {
 
+    TeacherDetails findByEmail(String email);
 }

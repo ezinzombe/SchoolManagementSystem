@@ -14,7 +14,16 @@ public class Subject extends BaseEntityId {
     private String name;
     @NotEmpty
     private String subjectCode;
+    private Set<Assignment> assignments = new HashSet<>();
 
+    @OneToMany(mappedBy = "subject")
+    public Set<Assignment> getAssignments() {
+        return assignments;
+    }
+
+    public void setAssignments(Set<Assignment> assignments) {
+        this.assignments = assignments;
+    }
 
     public String getSubjectCode() {
         return subjectCode;

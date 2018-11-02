@@ -11,12 +11,49 @@ public class TeacherDetails extends BaseEntityId {
 
 	private static final long serialVersionUID = -7947438187750407254L;
 	private Long 	userId;
+    private String firstName;
+    private String lastName;
+    private String email;
 	private User    user;
 	private Date 	promotionDate;
 	private String 	designation;
 	private String 	joinPosition;
 	private String 	status;
+    private School school;
 
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @ManyToOne
+    public School getSchool() {
+        return school;
+    }
+
+    public void setSchool(School school) {
+        this.school = school;
+    }
 
 	public Long getUserId() {
 		return userId;
