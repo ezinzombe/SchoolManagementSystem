@@ -14,6 +14,7 @@ public class School extends BaseEntityId {
     private String centerNumber;
     private String addressLine1;
     private String addressLine2;
+    @Enumerated
     private Province province;
 
     public String getAddressLine1() {
@@ -32,7 +33,6 @@ public class School extends BaseEntityId {
         this.addressLine2 = addressLine2;
     }
 
-    @Enumerated(EnumType.STRING)
     public Province getProvince() {
         return province;
     }

@@ -53,7 +53,7 @@ public class AddressController {
     }
 
     @RequestMapping(value = "/save/{id}",method = RequestMethod.POST)
-    public String save(@PathVariable("id") Long id, @ModelAttribute("address") @Validated Address address,
+    public String save(@ModelAttribute("address") @Validated Address address, @PathVariable("id") Long id,
                        BindingResult result, Model model) {
         if (result.hasErrors()) {
 

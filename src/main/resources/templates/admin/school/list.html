@@ -54,7 +54,7 @@
                             <tr th:each="school : ${schools}">
                                 <td th:text="${school.name}"></td>
                                 <td th:text="${school.centerNumber}"></td>
-                                <!--<td th:text="${school.province.name}"></td>-->
+                                <td th:text="${school.province.name}"></td>
                                 <td><a th:href="@{'/admin/school/update/' + ${school.id}}" class="btn btn-warning">Update</a></h2>
                                 </td>
                                 <td><a th:href="@{'/admin/school/delete/' + ${school.id}}"

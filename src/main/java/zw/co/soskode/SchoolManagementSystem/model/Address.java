@@ -10,6 +10,7 @@ public class Address extends BaseEntityId {
     private Student student;
     private String addressLine1;
     private String addressLine2;
+    @Enumerated
     private AddressType addressType;
     private String contact;
 
@@ -48,7 +49,6 @@ public class Address extends BaseEntityId {
         this.addressLine2 = addressLine2;
     }
 
-    @Enumerated(EnumType.STRING)
     public AddressType getAddressType() {
         return addressType;
     }

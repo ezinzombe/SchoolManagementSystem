@@ -2,14 +2,14 @@ package zw.co.soskode.SchoolManagementSystem.controller.student;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import zw.co.soskode.SchoolManagementSystem.model.Grades;
 import zw.co.soskode.SchoolManagementSystem.model.Student;
 import zw.co.soskode.SchoolManagementSystem.repository.GradesRepository;
@@ -33,29 +33,14 @@ public class GradesController {
     private StudentService studentService;
 
 
-//    @RequestMapping(value = "/{id}/add", method = RequestMethod.GET)
-//    public String add(@PathVariable("id") Long id, Model model) {
-//
-//        logger.debug("grade - add() is executed!");
-//
-//        Grades grades = new Grades();
-//        Optional<Student> studentOptional = studentService.findOne(id);
-//        final Student student = studentOptional.get();
-//        if (studentOptional.isPresent()) {
-//            grades.setStudent(student);
-//        } else {
-//            throw new IllegalArgumentException();
-//        }
-//
-//        model.addAttribute("student", student);
-//        model.addAttribute("grades", grades);
-//
-//        return "grades/add";
-
-
+    @GetMapping(value = "/single/{id}")
+    public String view(@PathVariable("id") Long id, ModelMap modelMap) {
+        Grades grades = gradesRepository.getOne(id);
+        return "redirect:/student/show/" + grades.getStudent().getId();
+    }
 
     @RequestMapping(value = "/save/{id}",method = RequestMethod.POST)
-    public String save(@PathVariable("id") Long id, @ModelAttribute("address") @Validated Grades grades,
+    public String save(@ModelAttribute("newGrade") @Validated Grades grades, @PathVariable("id") Long id,
                        BindingResult result, Model model) {
         if (result.hasErrors()) {
 
@@ -65,7 +50,7 @@ public class GradesController {
         }
         grades.setStudent(studentService.findOne(id).get());
         gradesRepository.save(grades);
-        return "redirect:/student/" + grades.getStudent().getId();
+        return "redirect:/student/show/" + grades.getStudent().getId();
     }
 
 
@@ -74,10 +59,14 @@ public class GradesController {
     public String delete(@PathVariable("id") Long id) {
         Long studentID = gradesRepository.findById(id).get().getStudent().getId();
         gradesRepository.deleteById(studentID);
-        return "redirect:/student/" + studentID;
+        return "redirect:/student/show/" + id;
     }
 
 
+    @RequestMapping(value = "/student/{id}", method = RequestMethod.GET)
+    public String show(@PathVariable("id") Long id, Model model) {
+        return "student/view";
+    }
 
 }
 

@@ -12,6 +12,7 @@ import zw.co.soskode.SchoolManagementSystem.model.Province;
 import zw.co.soskode.SchoolManagementSystem.model.School;
 import zw.co.soskode.SchoolManagementSystem.repository.SchoolRepository;
 
+import javax.jws.WebParam;
 import javax.persistence.Entity;
 import java.util.List;
 
@@ -43,10 +44,12 @@ public class ApproveSchoolController {
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String save(@ModelAttribute("school") @Validated School school,
-                       BindingResult result, SessionStatus status,
+                       BindingResult result, SessionStatus status, Model model,
                        final RedirectAttributes redirectAttributes) throws Exception {
         //Check validation errors
         if (result.hasErrors()) {
+            model.addAttribute("title", "Create/ Edit School");
+            model.addAttribute("provinces", Province.values());
             return "admin/school/add";
         } else {
             redirectAttributes.addFlashAttribute("css", "success");

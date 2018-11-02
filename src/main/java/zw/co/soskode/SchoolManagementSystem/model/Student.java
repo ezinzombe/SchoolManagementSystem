@@ -18,12 +18,32 @@ public class Student extends  BaseEntityId{
 	private static final long serialVersionUID = -5457596000511194801L;
 	private Long userId;
 	private User  user;
+    private String firstName;
+    private String lastName;
+    @Enumerated
     private FormType formType;
     private Classes classes;
     private List<Address> addresses;
     private List<Grades> grades;
     private Date dateOfBirth;
     private String gender;
+
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
     public String getGender() {
         return gender;
@@ -61,7 +81,6 @@ public class Student extends  BaseEntityId{
         this.grades = grades;
     }
 
-    @Enumerated(EnumType.STRING)
     public FormType getFormType() {
         return formType;
     }

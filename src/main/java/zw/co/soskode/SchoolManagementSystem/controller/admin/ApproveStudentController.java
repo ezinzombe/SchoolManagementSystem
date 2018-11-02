@@ -55,9 +55,13 @@ public class ApproveStudentController {
         final Student student = new Student();
         final User updatedUser = userRepository.getOne(user.getId());
         final  Role studentRole = roleRepository.findRoleByName("STUDENT");
+//        =================== MAPPING THE STUDENT AFTER APPROVING===============
         student.setUser(user);
         student.setUserId(user.getId());
         student.setDateCreated(new Date());
+        student.setFirstName(user.getFirstName());
+        student.setLastName(user.getLastName());
+//        =============UPDATING THE USER NOW===================
         updatedUser.setApproved(true);
         updatedUser.setRoles(user.getRoles());
         updatedUser.setFirstName(user.getFirstName());
