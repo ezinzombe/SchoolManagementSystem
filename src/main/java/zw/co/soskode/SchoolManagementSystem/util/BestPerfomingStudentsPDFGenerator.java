@@ -28,7 +28,7 @@ public class BestPerfomingStudentsPDFGenerator {
 
             // Add Text to PDF file ->
             Font font = FontFactory.getFont(FontFactory.COURIER, 14, BaseColor.BLACK);
-            Paragraph para = new Paragraph("Best Performing Students ", font);
+            Paragraph para = new Paragraph("Best Performing Students :: Ascending Order", font);
             para.setAlignment(Element.ALIGN_CENTER);
             document.add(para);
             document.add(Chunk.NEWLINE);
@@ -48,7 +48,7 @@ public class BestPerfomingStudentsPDFGenerator {
 
             for (Student student : students) {
                 PdfPCell idCell = new PdfPCell(new Phrase(student.getFirstName().toString()));
-                idCell.setPaddingLeft(4);
+                idCell.setPaddingLeft(2);
                 idCell.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 idCell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(idCell);
