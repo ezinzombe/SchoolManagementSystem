@@ -20,7 +20,7 @@ public class StudentPointsScheduler {
     @Autowired
     private StudentRepository studentRepository;
 
-    @Scheduled(cron = "*/35 * * * * ?")
+    @Scheduled(cron = "*/9 * * * * ?")
     public void initializeStudentsPoints() {
         List<Student> students = studentRepository.findAll();
         for (Student student : students) {
@@ -32,7 +32,7 @@ public class StudentPointsScheduler {
     private int total;
     private int subjectPoints;
 
-    @Scheduled(cron = "*/40 * * * * ?")
+    @Scheduled(cron = "*/10 * * * * ?")
     public void configureStudentPoints() {
         List<Student> students = studentRepository.findAll();
         for (Student student : students) {
@@ -43,7 +43,7 @@ public class StudentPointsScheduler {
             int sum = studentTotalPoints.stream().mapToInt(Integer::intValue).sum();
 
             student.setPoints(sum);
-            System.out.println("-----------------------SUM+++++++++++++++++++++++++" + sum);
+            System.out.println("-----------------------SUM+++++++++++++++++++++++++" + sum + "POINTS OBTAINED");
             studentRepository.save(student);
         }
 
