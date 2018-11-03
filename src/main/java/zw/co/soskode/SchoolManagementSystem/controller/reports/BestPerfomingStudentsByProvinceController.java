@@ -31,7 +31,7 @@ public class BestPerfomingStudentsByProvinceController {
 
     @GetMapping(value = "/list", produces = MediaType.APPLICATION_PDF_VALUE)
 
-    public ResponseEntity<InputStreamResource> customerReport(@RequestParam String name) throws IOException {
+    public ResponseEntity<InputStreamResource> customerReport() throws IOException {
 
 //        List<Student> students = studentRepository.findAllByFirstNameLike("Morgan");
 
