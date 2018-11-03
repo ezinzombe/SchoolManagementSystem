@@ -56,4 +56,15 @@ public class School extends BaseEntityId {
     public void setCenterNumber(String centerNumber) {
         this.centerNumber = centerNumber;
     }
+
+    @Override
+    public String toString() {
+        return "School{" +
+                "name='" + name + '\'' +
+                ", centerNumber='" + centerNumber + '\'' +
+                ", addressLine1='" + addressLine1 + '\'' +
+                ", addressLine2='" + addressLine2 + '\'' +
+                ", province=" + province +
+                '}';
+    }
 }

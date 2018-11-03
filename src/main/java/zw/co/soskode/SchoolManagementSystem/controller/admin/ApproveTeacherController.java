@@ -33,7 +33,7 @@ public class ApproveTeacherController {
 
     @GetMapping("/teacher")
     public String list(Model model) {
-        List<User> teachers = userRepository.findByRoleName("ADMIN");
+        List<User> teachers = userRepository.findByRoleName("TEACHER");
         model.addAttribute("teachers", teachers);
         return "admin/approve/teacher";
     }

@@ -120,7 +120,14 @@ public class HomeController {
         ModelAndView model = new ModelAndView();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String name = authentication.getName();
+
+       User user = userRepository.findByEmail(name);
+
+        School school = schoolRepository.getOne(2L);
+
         model.addObject("username", name);
+        model.addObject("students", studentRepository.findAllBySchool(school));
+
         model.setViewName("registrar/home");
         return model;
     }
