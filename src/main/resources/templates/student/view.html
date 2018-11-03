@@ -50,14 +50,6 @@
                                        aria-controls="subjects" aria-selected="false">Subjects Details</a>
                                 </li>
 
-                                <li sec:authorize="hasAuthority('STUDENT')" class="nav-item">
-                                    <a class="nav-link" id="uploadAssignments-tab" data-toggle="tab"
-                                       href="#uploadAssignments" role="tab"
-                                       aria-controls="uploadAssignments" aria-selected="false">Upload Assignments</a>
-                                </li>
-                                <li sec:authorize="hasAuthority('TEACHER')" class="nav-item">
-                                    <a class="nav-link" id="studentAssignments-tab" data-toggle="tab" href="#results" role="tab"
-
 
                                 <li class="nav-item">
                                     <a class="nav-link" id="results-tab" data-toggle="tab" href="#results" role="tab"
@@ -133,7 +125,7 @@
                                         <tr th:each=" grade: ${grades}">
                                             <td th:text="${grade.subject?.name}"></td>
                                             <td th:text="${grade.mark}"></td>
-                                            <td th:text="${grade.symbolResult}"></td>
+                                            <td th:text="${grade.markPercentage}"></td>
 
 
                                             <div sec:authorize="hasAuthority('TEACHER')">
@@ -370,15 +362,6 @@
                                                required="" placeholder="Enter mark " class="form-control">
                                     <div th:if="${#fields.hasErrors('mark')}" th:errors="*{mark}"></div>
                                 </div>
-
-                                <div class="form-group"><label for="symbolResult" class=" form-control-label">Symbol
-                                    Result:
-                                </label><input type="text" id="symbolResult" name="symbolResult"
-                                               th:field="*{symbolResult}"
-                                               required="" placeholder="Enter symbol Result " class="form-control">
-                                    <div th:if="${#fields.hasErrors('symbolResult')}" th:errors="*{symbolResult}"></div>
-                                </div>
-
 
                                 <div class="card-footer">
                                     <button type="submit"
