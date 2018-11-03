@@ -1,13 +1,11 @@
 package zw.co.soskode.SchoolManagementSystem.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -26,9 +24,19 @@ public class Student extends  BaseEntityId{
     private Classes classes;
     private List<Address> addresses;
     private List<Grades> grades;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateOfBirth;
-    private String gender;
+    @Enumerated
+    private Gender gender;
     private Set<Assignment> assignments = new HashSet<>();
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
 
     @ManyToOne
     public School getSchool() {
@@ -64,13 +72,7 @@ public class Student extends  BaseEntityId{
         this.lastName = lastName;
     }
 
-    public String getGender() {
-        return gender;
-    }
 
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
 
     @Temporal(TemporalType.DATE)
     public Date getDateOfBirth() {
@@ -132,6 +134,43 @@ public class Student extends  BaseEntityId{
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Transient
+    public String getFullName() {
+        return lastName + " " + firstName;
+    }
+
+    @Transient
+    public String getAge() {
+        if (getIntegerValueOfAge() < 1) {
+            return " less 1 yr ";
+        } else {
+            return getIntegerValueOfAge() + " yrs";
+        }
+    }
+
+    @Transient
+    public int getIntegerValueOfAge() {
+        if (getDateOfBirth() == null) {
+            return 0;
+        }
+
+        Calendar birthCalendar = Calendar.getInstance();
+        birthCalendar.setTime(getDateOfBirth());
+
+        Calendar todayCalendar = Calendar.getInstance();
+
+        int age = todayCalendar.get(Calendar.YEAR) - birthCalendar.get(Calendar.YEAR);
+
+        if (todayCalendar.get(Calendar.MONTH) < birthCalendar.get(Calendar.MONTH)) {
+            age--;
+        } else if (todayCalendar.get(Calendar.MONTH) == birthCalendar.get(Calendar.MONTH)
+                && todayCalendar.get(Calendar.DAY_OF_MONTH) < birthCalendar.get(Calendar.DAY_OF_MONTH)) {
+            age--;
+        }
+
+        return age;
     }
 
     @Override

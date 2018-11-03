@@ -64,19 +64,33 @@
                 <li class="active"  sec:authorize="hasAuthority('ADMIN')">
                     <a th:href="@{/adminPage}"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                 </li>
+
                 <li class="active"  sec:authorize="hasAuthority('STUDENT')">
                     <a th:href="@{/studentPage}"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                 </li>
+                <li class="active" sec:authorize="hasAuthority('CUTADMIN')">
+                    <a th:href="@{/cutAdminPage}"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+                </li>
 
-                <li  sec:authorize="hasAuthority('TEACHER')">
+                <li sec:authorize="hasAuthority('CUTADMIN')">
+                    <a th:href="@{/cutadmin/reports/list}"> <i class="menu-icon fa fa-opera"></i>Schools Reports</a>
+                </li>
+
+                <li sec:authorize="hasAuthority('REGISTRAR')">
                     <a th:href="@{/admin/approve/student}"> <i class="menu-icon fa fa-opera"></i>Approve Student</a>
                 </li>
-                <li sec:authorize="hasAuthority('ADMIN')">
+                <li sec:authorize="hasAuthority('REGISTRAR')">
+                    <a th:href="@{/admin/approve/student}"> <i class="menu-icon fa fa-opera"></i>Approve Teachers</a>
+                </li>
+                <li sec:authorize="hasAuthority('CUTADMIN')">
                     <a th:href="@{/admin/school/list}"> <i class="menu-icon fa fa-opera"></i>Manage Schools</a>
                 </li>
 
                 <li sec:authorize="hasAuthority('TEACHER')">
                     <a th:href="@{/teacherPage}"> <i class="menu-icon fa fa-opera"></i>Students</a>
+                </li>
+                <li sec:authorize="hasAuthority('REGISTRAR')">
+                    <a th:href="@{/}"> <i class="menu-icon fa fa-opera"></i>Students</a>
                 </li>
 
 

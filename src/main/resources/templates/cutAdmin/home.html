@@ -1,22 +1,62 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<div th:include="fragments/header"></div>
-<div class="content-wrapper">
-    <div class="container-fluid">
-        <!-- Breadcrumbs-->
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-                <a href="index.html">Dashboard</a>
-            </li>
-            <li class="breadcrumb-item active">Blank Page</li>
-        </ol>
-        <div class="row">
-            <div class="col-12">
-                <h1>Blank</h1>
-                <p>This is the homepage.</p>
+<th:block th:include="fragments/header"></th:block>
+<div class="breadcrumbs">
+    <div class="col-sm-4">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Dashboard</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right">
+                    <li class="active">All Schools List</li>
+                </ol>
             </div>
         </div>
     </div>
 </div>
+<div class="content mt-3">
+
+    <div class="animated fadeIn">
+        <div class="row">
+
+
+            <table id="roleListTable" th:inline="none" cellspacing="0" width="100%" class="table table-striped">
+                <br/>
+                <span th:utext="${successMessage}" class="text-success"></span>
+                <thead>
+                <tr>
+                    <th scope="col">School Name</th>
+                    <th scope="col">School Centre Number</th>
+                    <th scope="col">Province</th>
+                    <th scope="col">Address Line 1</th>
+                    <th scope="col">Address Line 2</th>
+
+
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="school : ${schools}">
+                    <td th:text="${school.name}"></td>
+                    <td th:text="${school.centerNumber}"></td>
+                    <td th:text="${school.province}"></td>
+                    <td th:text="${school.addressLine1}"></td>
+                    <td th:text="${school.addressLine2}"></td>
+
+
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+</div>
 <div th:include="fragments/footer"></div>
+</html>

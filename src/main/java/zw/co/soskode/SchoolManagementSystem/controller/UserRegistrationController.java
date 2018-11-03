@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import zw.co.soskode.SchoolManagementSystem.dto.UserRegistrationDto;
+import zw.co.soskode.SchoolManagementSystem.model.Gender;
 import zw.co.soskode.SchoolManagementSystem.model.Role;
 import zw.co.soskode.SchoolManagementSystem.model.User;
 import zw.co.soskode.SchoolManagementSystem.repository.RoleRepository;
@@ -44,6 +45,7 @@ private SchoolRepository schoolRepository;
     public String showRegistrationForm(Model model) {
         model.addAttribute("roles", roleRepository.findAll());
         model.addAttribute("schools", schoolRepository.findAll());
+        model.addAttribute("genders", Gender.values());
         return "registration/registration";
     }
 
@@ -59,6 +61,8 @@ private SchoolRepository schoolRepository;
 
         if (result.hasErrors()) {
             model.addAttribute("roles", roleRepository.findAll());
+            model.addAttribute("schools", schoolRepository.findAll());
+            model.addAttribute("genders", Gender.values());
             return "registration/registration";
         }
         user.setFirstName(userDto.getFirstName());
@@ -79,8 +83,15 @@ private SchoolRepository schoolRepository;
             } else if(r.getName().toUpperCase().equals("TEACHER")){
                 user.setRoleName("TEACHER");
                 userService.save(user);
-            }
-            else{
+            } else if (r.getName().toUpperCase().equals("CUTADMIN")) {
+                user.setRoleName("CUTADMIN");
+                user.setApproved(true);
+                userService.save(user);
+            } else if (r.getName().toUpperCase().equals("REGISTRAR")) {
+                user.setRoleName("REGISTRAR");
+                user.setApproved(true);
+                userService.save(user);
+            } else{
                 user.setRoleName("zombie");
                 userService.save(user);
             }

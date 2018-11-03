@@ -1,13 +1,17 @@
 package zw.co.soskode.SchoolManagementSystem.dto;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import zw.co.soskode.SchoolManagementSystem.constraint.FieldMatch;
+import zw.co.soskode.SchoolManagementSystem.model.Gender;
 import zw.co.soskode.SchoolManagementSystem.model.Role;
 import zw.co.soskode.SchoolManagementSystem.model.School;
 
+import javax.persistence.Enumerated;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.util.Collection;
+import java.util.Date;
 
 
 @FieldMatch.List({
@@ -42,6 +46,11 @@ public class UserRegistrationDto {
     private Collection<Role> roles;
 
     private School school;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dateOfBirth;
+    @Enumerated
+    private Gender gender;
+
 
     public School getSchool() {
         return school;
@@ -115,4 +124,20 @@ public class UserRegistrationDto {
         this.terms = terms;
     }
 
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
 }

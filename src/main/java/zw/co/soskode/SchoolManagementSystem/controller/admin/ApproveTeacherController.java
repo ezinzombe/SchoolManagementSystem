@@ -52,6 +52,11 @@ public class ApproveTeacherController {
         teacherDetails.setUser(user);
         teacherDetails.setUserId(user.getId());
         teacherDetails.setDateCreated(new Date());
+        teacherDetails.setFirstName(user.getFirstName());
+        teacherDetails.setLastName(user.getLastName());
+        teacherDetails.setSchool(user.getSchool());
+        teacherDetails.setGender(user.getGender());
+        teacherDetails.setDateOfBirth(user.getDateOfBirth());
 
 
         updatedUser.setApproved(true);
