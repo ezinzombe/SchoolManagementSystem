@@ -54,5 +54,33 @@ public class Grades extends BaseEntityId{
         }
     }
 
+    @Transient
+    public int getMarkPoints() {
+        if (getMark() < 50) {
+            int point;
+            System.out.println("fail");
+            return 0;
+        } else if (getMark() >= 50 && getMark() < 55) {
+            System.out.println("D grade");
+            return 1;
+        } else if (getMark() >= 55 && getMark() < 60) {
+            System.out.println("D grade");
+            return 2;
+        } else if (getMark() >= 60 && getMark() < 70) {
+            System.out.println("C grade");
+            return 3;
+        } else if (getMark() >= 70 && getMark() < 80) {
+            System.out.println("B grade");
+            return 4;
+        } else if (getMark() >= 80 && getMark() < 100) {
+            System.out.println("A+ grade");
+            return 5;
+        } else {
+            System.out.println("Invalid!");
+            return 0;
+        }
+
+    }
+
 
 }
