@@ -76,8 +76,14 @@
                     <a th:href="@{/cutadmin/reports/list}"> <i class="menu-icon fa fa-opera"></i>Schools Reports</a>
                 </li>
 
+
                 <li sec:authorize="hasAuthority('REGISTRAR')">
                     <a th:href="@{/admin/approve/student}"> <i class="menu-icon fa fa-opera"></i>Approve Student</a>
+
+                <li sec:authorize="hasAuthority('TEACHER')">
+                    <a th:href="@{/admin/approve/student}"> <i class="menu-icon fa  fa-check-square-o"></i>Approve
+                        Student</a>
+
                 </li>
                 <li sec:authorize="hasAuthority('REGISTRAR')">
                     <a th:href="@{/admin/approve/student}"> <i class="menu-icon fa fa-opera"></i>Approve Teachers</a>
@@ -87,7 +93,7 @@
                 </li>
 
                 <li sec:authorize="hasAuthority('TEACHER')">
-                    <a th:href="@{/teacherPage}"> <i class="menu-icon fa fa-opera"></i>Students</a>
+                    <a th:href="@{/teacherPage}"> <i class="menu-icon fa fa-user"></i>Students</a>
                 </li>
                 <li sec:authorize="hasAuthority('REGISTRAR')">
                     <a th:href="@{/}"> <i class="menu-icon fa fa-opera"></i>Students</a>
@@ -96,16 +102,16 @@
 
 
                 <li sec:authorize="hasAuthority('STUDENT')">
-                    <a> <i class="menu-icon fa fa-opera"></i>View Results</a>
+                    <a> <i class="menu-icon fa fa-book"></i>View Results</a>
                 </li>
 
 
                 <li sec:authorize="hasAuthority('TEACHER') || hasAuthority('ADMIN')">
-                    <a th:href="@{/admin/list}"> <i class="menu-icon fa fa-opera"></i>Configurations</a>
+                    <a th:href="@{/admin/list}"> <i class="menu-icon fa fa-gears"></i>Configurations</a>
                 </li>
 
                 <li>
-                    <a th:href="@{/logout}"> <i class="menu-icon fa fa-opera"></i>Logout</a>
+                    <a th:href="@{/logout}"> <i class="menu-icon fa  fa-sign-out"></i>Logout</a>
                 </li>
 
 

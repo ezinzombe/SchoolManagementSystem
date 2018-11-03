@@ -49,6 +49,7 @@
                                     <a class="nav-link" id="subjects-tab" data-toggle="tab" href="#subjects" role="tab"
                                        aria-controls="subjects" aria-selected="false">Subjects Details</a>
                                 </li>
+
                                 <li sec:authorize="hasAuthority('STUDENT')" class="nav-item">
                                     <a class="nav-link" id="uploadAssignments-tab" data-toggle="tab"
                                        href="#uploadAssignments" role="tab"
@@ -56,6 +57,21 @@
                                 </li>
                                 <li sec:authorize="hasAuthority('TEACHER')" class="nav-item">
                                     <a class="nav-link" id="studentAssignments-tab" data-toggle="tab" href="#results" role="tab"
+
+
+                                <li class="nav-item">
+                                    <a class="nav-link" id="results-tab" data-toggle="tab" href="#results" role="tab"
+                                       aria-controls="results" aria-selected="false">Assignments</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="uploadAssignments-tab" data-toggle="tab" href="#results"
+                                       role="tab"
+                                       aria-controls="results" aria-selected="false">Upload Assignments</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="studentAssignments-tab" data-toggle="tab" href="#results"
+                                       role="tab"
+
                                        aria-controls="results" aria-selected="false">My Students Assignments</a>
                                 </li>
 
@@ -93,11 +109,15 @@
 
                                 <div class="tab-pane fade" id="subjects" role="tabpanel" aria-labelledby="profile-tab">
 
+                                    <div sec:authorize="hasAuthority('TEACHER')">
+                                        <button type="button" class="btn btn-secondary mb-1" data-toggle="modal"
+                                                data-target="#subjectModal">
+                                            New Subject
+                                        </button>
+                                    </div>
+                                    <!--<div sec:authorize="hasAuthority('TEACHER')">-->
+                                    <!--</div>-->
 
-                                    <button type="button" class="btn btn-secondary mb-1" data-toggle="modal"
-                                            data-target="#subjectModal">
-                                        New Subject
-                                    </button>
                                     <table class="table table-striped">
                                         <thead>
                                         <tr>
@@ -115,19 +135,21 @@
                                             <td th:text="${grade.mark}"></td>
                                             <td th:text="${grade.symbolResult}"></td>
 
-                                            <td>
-                                                <button type="button" name="view" th:id="${grade.id}" class="btn btn-info btn-xs view">View</button>
 
-                                            </td>
+                                            <div sec:authorize="hasAuthority('TEACHER')">
 
-                                            <td class='text-center'><a href='#' th:id="${grade.id}" class="aprove"><span
-                                                    class='glyphicon glyphicon-user'
-                                                    aria-hidden='true'>Update Mark</span></a>
+                                                <td class='text-center'><a href='#' th:id="${grade.id}"
+                                                                           class="aprove"><span
+                                                        class='glyphicon glyphicon-user'
+                                                        aria-hidden='true'>Update Mark</span></a>
+                                                </td>
 
-                                            <td>
-                                                <a class="btn btn-success btn-danger"
-                                                   href="">Delete</a>
-                                            </td>
+                                                <td>
+                                                    <a class="btn btn-success btn-danger"
+                                                       href="">Delete</a>
+                                                </td>
+                                            </div>
+
 
                                         </tr>
 
@@ -312,75 +334,78 @@
 <div id="modalHolder">
     <div class="modal fade" id="subjectModal" th:fragment="modalContents" tabindex="-1" role="dialog"
          aria-labelledby="mediumModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addSubject">Subject Add</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="card">
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addSubject">Subject Add</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card">
 
-                    <div class="card-body card-block">
-
-
-                        <form autocomplete="off" class="sky-form" th:object="${newGrade}" method="post"
-                              th:action="@{'/grades/save/' + ${student.id}}" role="form">
-
-                            <input type="hidden" th:field="*{id}"/>
-
-                            <div class="form-group">
-                                <label>Select Address Type </label>
-                                <select class="form-control" th:field="*{subject}">
-                                    <option th:each="subject : ${subjects}"
-                                            th:value="${{subject.id}}"
-                                            th:text="${subject.name}">
-                                    </option>
-                                </select>
-                            </div>
-
-                            <div class="form-group"><label for="mark" class=" form-control-label">Please enter mark
-                                obtained:
-                            </label><input type="text" id="mark" name="mark" th:field="*{mark}"
-                                           required="" placeholder="Enter mark " class="form-control">
-                                <div th:if="${#fields.hasErrors('mark')}" th:errors="*{mark}"></div>
-                            </div>
-
-                            <div class="form-group"><label for="symbolResult" class=" form-control-label">Symbol Result:
-                            </label><input type="text" id="symbolResult" name="symbolResult" th:field="*{symbolResult}"
-                                           required="" placeholder="Enter symbol Result " class="form-control">
-                                <div th:if="${#fields.hasErrors('symbolResult')}" th:errors="*{symbolResult}"></div>
-                            </div>
+                        <div class="card-body card-block">
 
 
-                            <div class="card-footer">
-                                <button type="submit" th:onclick="'javascript:editSubject(\'' + ${newGrade.id} +'\');'"
-                                        class="btn btn-primary btn-sm">
-                                    <i class="fa fa-dot-circle-o"></i> Submit
-                                </button>
-                                <button type="reset" class="btn btn-danger btn-sm">
-                                    <i class="fa fa-ban"></i> Reset
-                                </button>
-                            </div>
+                            <form autocomplete="off" class="sky-form" th:object="${newGrade}" method="post"
+                                  th:action="@{'/grades/save/' + ${student.id}}" role="form">
 
-                        </form>
+                                <input type="hidden" th:field="*{id}"/>
+
+                                <div class="form-group">
+                                    <label>Select Address Type </label>
+                                    <select class="form-control" th:field="*{subject}">
+                                        <option th:each="subject : ${subjects}"
+                                                th:value="${{subject.id}}"
+                                                th:text="${subject.name}">
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group"><label for="mark" class=" form-control-label">Please enter mark
+                                    obtained:
+                                </label><input type="text" id="mark" name="mark" th:field="*{mark}"
+                                               required="" placeholder="Enter mark " class="form-control">
+                                    <div th:if="${#fields.hasErrors('mark')}" th:errors="*{mark}"></div>
+                                </div>
+
+                                <div class="form-group"><label for="symbolResult" class=" form-control-label">Symbol
+                                    Result:
+                                </label><input type="text" id="symbolResult" name="symbolResult"
+                                               th:field="*{symbolResult}"
+                                               required="" placeholder="Enter symbol Result " class="form-control">
+                                    <div th:if="${#fields.hasErrors('symbolResult')}" th:errors="*{symbolResult}"></div>
+                                </div>
+
+
+                                <div class="card-footer">
+                                    <button type="submit"
+                                            th:onclick="'javascript:editSubject(\'' + ${newGrade.id} +'\');'"
+                                            class="btn btn-primary btn-sm">
+                                        <i class="fa fa-dot-circle-o"></i> Submit
+                                    </button>
+                                    <button type="reset" class="btn btn-danger btn-sm">
+                                        <i class="fa fa-ban"></i> Reset
+                                    </button>
+                                </div>
+
+                            </form>
+
+                        </div>
 
                     </div>
-
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Confirm</button>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary">Confirm</button>
-            </div>
+
+
         </div>
-
-
     </div>
-</div>
 
 
 </div>
