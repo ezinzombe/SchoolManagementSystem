@@ -7,6 +7,7 @@ import zw.co.soskode.SchoolManagementSystem.model.Role;
 import zw.co.soskode.SchoolManagementSystem.model.School;
 
 import javax.persistence.Enumerated;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -20,6 +21,8 @@ import java.util.Date;
 })
 public class UserRegistrationDto {
 
+
+    private School school;
     @NotEmpty
     private String firstName;
 
@@ -44,14 +47,12 @@ public class UserRegistrationDto {
     private Boolean terms;
 
     private Collection<Role> roles;
-
-    private School school;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateOfBirth;
     @Enumerated
     private Gender gender;
 
-
+    @ManyToOne
     public School getSchool() {
         return school;
     }

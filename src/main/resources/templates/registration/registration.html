@@ -123,9 +123,9 @@
 
                 <div class="form-group">
                     <label>Choose your school :</label>
-                    <select class="form-control" th:field="*{school}">
+                    <select class="form-control" required="" th:field="*{school}">
                         <option th:each="school : ${schools}"
-                                th:value="${{school.id}}"
+                                th:value="${school.id}"
                                 th:text="${school.name}">
                             Choose Business Type
                         </option>

@@ -72,6 +72,7 @@ private SchoolRepository schoolRepository;
         user.setRoles(userDto.getRoles());
         user.setDateOfBirth(userDto.getDateOfBirth());
         user.setGender(userDto.getGender());
+        user.setSchool(userDto.getSchool());
         System.out.println("============================ROLES======"+userDto.getRoles());
 
         for (Role r: userDto.getRoles()) {
