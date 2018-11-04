@@ -59,7 +59,7 @@ public class BestPerfomingStudentsByProvincePDFGenerator {
                 firstNameCell.setHorizontalAlignment(Element.ALIGN_LEFT);
                 table.addCell(firstNameCell);
 
-                PdfPCell lastNameCell = new PdfPCell(new Phrase(String.valueOf(student.getGender())));
+                PdfPCell lastNameCell = new PdfPCell(new Phrase(String.valueOf(student.getSchool().getName())));
                 lastNameCell.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 lastNameCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
                 lastNameCell.setPaddingRight(4);
