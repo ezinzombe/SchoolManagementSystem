@@ -92,7 +92,6 @@ private SchoolRepository schoolRepository;
                 userService.save(user);
             } else if (r.getName().toUpperCase().equals("REGISTRAR")) {
                 user.setRoleName("REGISTRAR");
-                user.setApproved(true);
                 userService.save(user);
             } else{
                 user.setRoleName("zombie");

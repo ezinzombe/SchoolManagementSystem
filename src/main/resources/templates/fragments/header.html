@@ -87,6 +87,10 @@
                 </li>
 
                 <li sec:authorize="hasAuthority('CUTADMIN')">
+                    <a th:href="@{/cutAdmin/approve/registrar}"> <i class="menu-icon fa fa-opera"></i>Approve School
+                        Registrar</a>
+                </li>
+                <li sec:authorize="hasAuthority('CUTADMIN')">
                     <a th:href="@{/admin/school/list}"> <i class="menu-icon fa fa-opera"></i>Manage Schools</a>
                 </li>
 
