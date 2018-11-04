@@ -1,6 +1,8 @@
 package zw.co.soskode.SchoolManagementSystem.controller.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
@@ -14,11 +16,9 @@ import zw.co.soskode.SchoolManagementSystem.repository.StudentRepository;
 import zw.co.soskode.SchoolManagementSystem.repository.UserRepository;
 import zw.co.soskode.SchoolManagementSystem.service.UserService;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.ArrayBlockingQueue;
 
 /**
  * Created by zinzombe on Oct
@@ -38,7 +38,10 @@ public class ApproveStudentController {
 
     @GetMapping("/student")
     public String list(Model model) {
-        List<User> students = userRepository.findByRoleName("STUDENT");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String name = authentication.getName();
+        User registrar = userRepository.findByEmail(name);
+        List<User> students = userRepository.findAllByRoleNameAndSchool("STUDENT", registrar.getSchool());
         model.addAttribute("students", students);
         return "admin/approve/student";
     }
@@ -51,7 +54,7 @@ public class ApproveStudentController {
 
     @RequestMapping(value = {"/student/save"}, method = RequestMethod.POST)
     public String add(@ModelAttribute("user") @Validated User user, Model model, RedirectAttributes redirectAttributes) {
-        System.out.println("=================================="+user);
+        System.out.println("====================USER ==============" + user);
         final Student student = new Student();
         final User updatedUser = userRepository.getOne(user.getId());
         final  Role studentRole = roleRepository.findRoleByName("STUDENT");
@@ -76,7 +79,10 @@ public class ApproveStudentController {
 
         studentRepository.save(student);
 
-        List<User> students = userRepository.findByRoleName("STUDENT");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String name = authentication.getName();
+        User registrar = userRepository.findByEmail(name);
+        List<User> students = userRepository.findAllByRoleNameAndSchool("STUDENT", registrar.getSchool());
         model.addAttribute("students", students);
         model.addAttribute("confirmationMessage", "STUDENT:: "+student.getUser().getFirstName()+"  has been approved!!!");
         return "admin/approve/student";

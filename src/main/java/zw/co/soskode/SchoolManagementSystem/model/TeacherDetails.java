@@ -1,32 +1,80 @@
 package zw.co.soskode.SchoolManagementSystem.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
-
-import static javax.persistence.GenerationType.IDENTITY;
+import java.util.List;
 
 @Entity
-@Table(name = "teacher_details")
-public class TeacherDetails extends BaseEntityId {
+@Table(name = "teacher")
+public class TeacherDetails implements Serializable {
 
-	private static final long serialVersionUID = -7947438187750407254L;
-	private Long 	userId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    @ManyToOne
+    @JoinColumn(name = "school_id")
+    private School school;
+    @DateTimeFormat(pattern = "dd/M/yyyy hh:mm:ss")
+    private Date dateCreated;
     private String firstName;
     private String lastName;
     private String email;
-	private User    user;
-	private Date 	promotionDate;
-	private String 	designation;
-	private String 	joinPosition;
-	private String 	status;
-    private School school;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Long userId;
+    @OneToOne(fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn
+    private User user;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateOfBirth;
     @Enumerated
     private Gender gender;
+
+
+    public School getSchool() {
+        return school;
+    }
+
+    public void setSchool(School school) {
+        this.school = school;
+    }
+
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -44,79 +92,8 @@ public class TeacherDetails extends BaseEntityId {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
-        return email;
-    }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    @ManyToOne
-    public School getSchool() {
-        return school;
-    }
-
-    public void setSchool(School school) {
-        this.school = school;
-    }
-
-	public Long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
-
-	@OneToOne(fetch=FetchType.LAZY)
-    @PrimaryKeyJoinColumn
-    public User getUser() {
-        return this.user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-	
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "promotionDate", length = 19)
-	public Date getPromotionDate() {
-		return this.promotionDate;
-	}
-	
-	public void setPromotionDate(Date promotionDate) {
-		this.promotionDate = promotionDate;
-	}
-
-	@Column(name = "designation", length = 45)
-	public String getDesignation() {
-		return this.designation;
-	}
-
-	public void setDesignation(String designation) {
-		this.designation = designation;
-	}
-	
-	@Column(name = "joinPosition", length = 45)
-	public String getJoinPosition() {
-		return this.joinPosition;
-	}
-	
-	public void setJoinPosition(String joinPosition) {
-		this.joinPosition = joinPosition;
-	}
-	
-	@Column(name = "status", length = 45)
-	public String getStatus() {
-		return this.status;
-	}
-	
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
+    @Temporal(TemporalType.DATE)
     public Date getDateOfBirth() {
         return dateOfBirth;
     }
@@ -125,12 +102,20 @@ public class TeacherDetails extends BaseEntityId {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public Gender getGender() {
-        return gender;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setGender(Gender gender) {
-        this.gender = gender;
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public User getUser() {
+        return this.user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Transient
@@ -170,4 +155,10 @@ public class TeacherDetails extends BaseEntityId {
         return age;
     }
 
+    @Override
+    public String toString() {
+        return "Student{" +
+                "user=" + user +
+                '}';
+    }
 }

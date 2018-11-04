@@ -1,6 +1,8 @@
 package zw.co.soskode.SchoolManagementSystem.controller.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
@@ -13,6 +15,7 @@ import zw.co.soskode.SchoolManagementSystem.repository.RoleRepository;
 import zw.co.soskode.SchoolManagementSystem.repository.TeacherRepository;
 import zw.co.soskode.SchoolManagementSystem.repository.UserRepository;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -33,7 +36,10 @@ public class ApproveTeacherController {
 
     @GetMapping("/teacher")
     public String list(Model model) {
-        List<User> teachers = userRepository.findByRoleName("ADMIN");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String name = authentication.getName();
+        User registrar = userRepository.findByEmail(name);
+        List<User> teachers = userRepository.findAllByRoleNameAndSchool("TEACHER", registrar.getSchool());
         model.addAttribute("teachers", teachers);
         return "admin/approve/teacher";
     }
@@ -46,8 +52,10 @@ public class ApproveTeacherController {
 
     @RequestMapping(value = {"/teacher/save"}, method = RequestMethod.POST)
     public String add(@ModelAttribute("user") @Validated User user, Model model, RedirectAttributes redirectAttributes) {
+        System.out.println("==================================" + user);
+        System.out.println("==================================" + user);
         final TeacherDetails teacherDetails = new TeacherDetails();
-        User updatedUser = new User();
+        final User updatedUser = userRepository.getOne(user.getId());
         final Role studentRole = roleRepository.findRoleByName("TEACHER");
         teacherDetails.setUser(user);
         teacherDetails.setUserId(user.getId());
@@ -67,10 +75,13 @@ public class ApproveTeacherController {
         updatedUser.setPassword((user.getPassword()));
         updatedUser.setRoleName(user.getRoleName());
         updatedUser.setRoles(Arrays.asList(studentRole));
-        userRepository.save(updatedUser);
+
         teacherRepository.save(teacherDetails);
 
-        List<User> teachers = userRepository.findAll();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String name = authentication.getName();
+        User registrar = userRepository.findByEmail(name);
+        List<User> teachers = userRepository.findAllByRoleNameAndSchool("TEACHER", registrar.getSchool());
         model.addAttribute("teachers", teachers);
         model.addAttribute("confirmationMessage", "Teacher"+teacherDetails.getUser().getFirstName()+"  has been approved!!!");
         return "admin/approve/teacher";

@@ -365,10 +365,10 @@
 
                                 <div class="card-footer">
                                     <button type="submit"
-                                            th:onclick="'javascript:editSubject(\'' + ${newGrade.id} +'\');'"
-                                            class="btn btn-primary btn-sm">
-                                        <i class="fa fa-dot-circle-o"></i> Submit
+                                            onclick="editMarks(this)"
+                                            class="btn btn-primary btn-sm"><i class="fa fa-dot-circle-o"></i> Submit
                                     </button>
+
                                     <td>
                                         <button type="button" class="btn btn-warning" data-toggle="modal"
                                                 data-target="#deleteProductModal" data-productid="1"
@@ -379,6 +379,7 @@
                                         <i class="fa fa-ban"></i> Reset
                                     </button>
                                 </div>
+
 
                             </form>
 
@@ -497,19 +498,25 @@
 
 </div>
 
+<script src="webjars/js/jq"></script>
 <script>
-    function editSubject(id) {
-        $.ajax({
-            url: "/grades/single/" + id,
-            success: function (response) {
 
-                alert("===========================" + response)
-                $('#modalHolder').html(response);
-                $('#subjectModal').modal();
-                $('#subjectModal').modal('open');
-            }
-        });
+    function editMarks(obj) {
+        alert("======================" + obj)
     }
+
+    // function editSubject(id) {
+    //     $.ajax({
+    //         url: "/grades/single/" + id,
+    //         success: function (response) {
+    //
+    //             alert("===========================" + response)
+    //             $('#modalHolder').html(response);
+    //             $('#subjectModal').modal();
+    //             $('#subjectModal').modal('open');
+    //         }
+    //     });
+    // }
 </script>
 
 <div th:include="fragments/footer"></div>

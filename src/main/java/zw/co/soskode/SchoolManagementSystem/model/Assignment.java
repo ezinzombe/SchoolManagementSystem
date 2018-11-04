@@ -17,7 +17,7 @@ public class Assignment extends BaseEntityId {
     @DateTimeFormat(pattern = "dd/M/yyyy hh:mm:ss")
     private Date dueDate;
     private Double marks;
-    private Student student;
+    //    private Student student;
     private Subject subject;
 
     @ManyToOne
@@ -53,12 +53,12 @@ public class Assignment extends BaseEntityId {
         this.marks = marks;
     }
 
-    @ManyToOne
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
-    }
+//    @ManyToOne
+//    public Student getStudent() {
+//        return student;
+//    }
+//
+//    public void setStudent(Student student) {
+//        this.student = student;
+//    }
 }

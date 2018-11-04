@@ -2,124 +2,71 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <th:block th:include="fragments/header"></th:block>
-<div class="breadcrumbs">
-    <div class="col-sm-4">
-        <div class="page-header float-left">
-            <div class="page-title">
-                <h1>Dashboard</h1>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-8">
-        <div class="page-header float-right">
-            <div class="page-title">
-                <ol class="breadcrumb text-right">
-                    <li class="active">Dasboard</li>
-                </ol>
-            </div>
-        </div>
-    </div>
-</div>
 <div class="content mt-3">
-
     <div class="animated fadeIn">
         <div class="row">
 
-            <div class="col-md-12">
+
+            <div class="col-md-2"></div>
+            <div class="col-lg-8">
                 <div class="card">
-                    <div class="card-header">
-                        <strong class="card-title">Approve Student</strong>
+                    <div class="card-header"><strong>Approve</strong>
+                        <small> Student</small>
                     </div>
-
-
-
-
-
+                    <div class="card-body card-block">
 
 
                     <form autocomplete="off" class="sky-form" th:object="${user}" method="post" th:action="@{/admin/approve/student/save}"
                           role="form">
 
-                        <header> Student Details</header>
-
-                        <div th:if="${confirmationMessage}" class="alert alert-success">
-                            <p th:text="${confirmationMessage}"></p>
-                        </div>
-
-                        <div>
-                            <fieldset>
-
                                 <input type="hidden" th:field="*{id}"/>
                                 <input type="hidden" th:field="*{password}"/>
                                 <input type="hidden" th:field="*{email}"/>
                                 <input type="hidden" th:field="*{roleName}"/>
+                        <input type="hidden" th:field="*{approved}"/>
+                        <input type="hidden" th:field="*{dateOfBirth}"/>
+                        <input type="hidden" th:field="*{gender}"/>
+                        <input type="hidden" th:field="*{school}"/>
 
-                                <section>
-                                    <div class="row">
-                                        <div class="col col-5">
-                                            <label class="input">
-                                                <i class="icon-append icon-user"></i>
-                                                <input type="text" id="firstName" name="firstName" th:field="*{firstName}"
-                                                       placeholder="Enter firstName Name "/>
-                                                <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Title error message
-                                                </div>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </section>
-
-                                <section>
-                                    <div class="row">
-                                        <div class="col col-5">
-                                            <label class="input">
-                                                <i class="icon-append icon-user"></i>
-                                                <input type="text" id="lastName" name="lastName" th:field="*{lastName}"
-                                                       placeholder="Enter lastName Name "/>
-                                                <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Title error message
-                                                </div>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </section>
-
-                                <div>
-                                    <button type="submit" class="button">Approve Student</button>
-                                </div>
-
-                                <div>
-                                    <a th:href="@{/admin/list}" class="buttonLeftCancel">Cancel</a>
-                                </div>
-                                </footer>
-
-                            </fieldset>
+                        <div class="form-group"><label for="firstName" class=" form-control-label"> Firstname
+                            Name</label><input type="text" id="firstName" name="name" th:field="*{firstName}"
+                                               required="" placeholder="Enter firstName name"
+                                               class="form-control">
+                            <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
                         </div>
 
-                        <span th:utext="${successMessage}"></span>
+                        <div class="form-group"><label for="lastName" class=" form-control-label">Lastname
+                            Name</label><input type="text" id="lastName" name="lastName" th:field="*{lastName}"
+                                               required="" placeholder="Enter your School name"
+                                               class="form-control">
+                            <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
+                        </div>
+
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary btn-sm">
+                                <i class="fa fa-dot-circle-o"></i> Submit
+                            </button>
+                            <button type="reset" class="btn btn-danger btn-sm">
+                                <a th:href="@{/admin/list}"> <i class="fa fa-ban"></i> Reset</a>
+
+                            </button>
+                        </div>
 
                     </form>
+                        <span th:utext="${successMessage}">
 
-
-
-
-
-
-
-
-
-
-
-
-
+                    </div>
                 </div>
+
+
             </div>
+            <div class="col-md-2"></div>
 
 
         </div>
     </div>
 
-
-
-
 </div>
 </div>
 <div th:include="fragments/footer"></div>
+</html>

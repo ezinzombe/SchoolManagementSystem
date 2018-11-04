@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import zw.co.soskode.SchoolManagementSystem.model.Student;
 import zw.co.soskode.SchoolManagementSystem.repository.StudentRepository;
-import zw.co.soskode.SchoolManagementSystem.util.BestPerfomingStudentsByProvincePDFGenerator;
 import zw.co.soskode.SchoolManagementSystem.util.BestPerfomingStudentsPDFGenerator;
 
 import java.io.ByteArrayInputStream;

@@ -80,14 +80,12 @@
                 <li sec:authorize="hasAuthority('REGISTRAR')">
                     <a th:href="@{/admin/approve/student}"> <i class="menu-icon fa fa-opera"></i>Approve Student</a>
 
-                <li sec:authorize="hasAuthority('TEACHER')">
-                    <a th:href="@{/admin/approve/student}"> <i class="menu-icon fa  fa-check-square-o"></i>Approve
-                        Student</a>
+                <li sec:authorize="hasAuthority('REGISTRAR')">
+                    <a th:href="@{/admin/approve/teacher}"> <i class="menu-icon fa  fa-check-square-o"></i>Approve
+                        Teachers</a>
 
                 </li>
-                <li sec:authorize="hasAuthority('REGISTRAR')">
-                    <a th:href="@{/admin/approve/student}"> <i class="menu-icon fa fa-opera"></i>Approve Teachers</a>
-                </li>
+
                 <li sec:authorize="hasAuthority('CUTADMIN')">
                     <a th:href="@{/admin/school/list}"> <i class="menu-icon fa fa-opera"></i>Manage Schools</a>
                 </li>
@@ -106,7 +104,7 @@
                 </li>
 
 
-                <li sec:authorize="hasAuthority('TEACHER') || hasAuthority('ADMIN')">
+                <li sec:authorize="hasAuthority('REGISTRAR') || hasAuthority('ADMIN')">
                     <a th:href="@{/admin/list}"> <i class="menu-icon fa fa-gears"></i>Configurations</a>
                 </li>
 
