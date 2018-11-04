@@ -347,7 +347,7 @@
                                 <input type="hidden" th:field="*{id}"/>
 
                                 <div class="form-group">
-                                    <label>Select Address Type </label>
+                                    <label>Select Subject </label>
                                     <select class="form-control" th:field="*{subject}">
                                         <option th:each="subject : ${subjects}"
                                                 th:value="${{subject.id}}"
@@ -369,6 +369,12 @@
                                             class="btn btn-primary btn-sm">
                                         <i class="fa fa-dot-circle-o"></i> Submit
                                     </button>
+                                    <td>
+                                        <button type="button" class="btn btn-warning" data-toggle="modal"
+                                                data-target="#deleteProductModal" data-productid="1"
+                                                data-productname="Product 1">Delete
+                                        </button>
+                                    </td>
                                     <button type="reset" class="btn btn-danger btn-sm">
                                         <i class="fa fa-ban"></i> Reset
                                     </button>

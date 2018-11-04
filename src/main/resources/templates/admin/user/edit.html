@@ -1,0 +1,110 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:include="fragments/header"></th:block>
+
+<div class="content mt-3">
+    <div class="animated fadeIn">
+        <div class="row">
+
+            <div class="col-md-2"></div>
+
+            <div class="col-md-8">
+
+                <div class="card">
+                    <div class="card-header"><strong>School</strong>
+                        <small> Form</small>
+
+                        <div class="card-body card-block">
+
+
+                            <form autocomplete="off" class="sky-form" th:object="${user}" method="post"
+                                  th:action="@{/admin/user/save}" role="form">
+                                <input type="hidden" th:field="*{id}"/>
+                                <input type="hidden" th:field="*{password}"/>
+                                <input type="hidden" th:field="*{approved}"/>
+                                <input type="hidden" th:field="*{roleName}"/>
+                                <input type="hidden" th:field="*{roles}"/>
+
+                                <div class="form-group"><label for="firstName" class=" form-control-label">First name
+                                    Name</label><input type="text" id="firstName" name="firstName"
+                                                       th:field="*{firstName}"
+                                                       required="" placeholder="Enter your School name"
+                                                       class="form-control">
+                                    <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
+                                </div>
+
+                                <div class="form-group"><label for="email" class=" form-control-label">email
+                                    Name</label><input type="text" id="email" name="email" th:field="*{email}"
+                                                       required="" placeholder="Enter your email name"
+                                                       class="form-control">
+                                    <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                                </div>
+
+                                <div class="form-group"><label for="lastName" class=" form-control-label">Lastname
+                                    Name</label><input type="text" id="lastName" name="lastName" th:field="*{lastName}"
+                                                       required="" placeholder="Enter your lastName name"
+                                                       class="form-control">
+                                    <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
+                                </div>
+
+                                <div class="form-group"><label for="dateOfBirth" class=" form-control-label">Date of
+                                    birth
+                                </label><input type="date" id="dateOfBirth" name="dateOfBirth" th:field="*{dateOfBirth}"
+                                               required=""
+                                               class="form-control">
+                                    <div th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Select Gender </label>
+                                    <select class="form-control" required="" th:field="*{gender}">
+                                        <option th:each="gender : ${genders}"
+                                                th:value="${{gender}}"
+                                                th:text="${gender.name}">
+                                        </option>
+                                    </select>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label>Select School </label>
+                                    <select class="form-control" th:field="*{school}">
+                                        <option th:each="school : ${schools}"
+                                                th:value="${{school.id}}"
+                                                th:text="${school.name}">
+                                        </option>
+                                    </select>
+                                </div>
+
+
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary btn-sm">
+                                        <i class="fa fa-dot-circle-o"></i> Submit
+                                    </button>
+                                    <button type="reset" class="btn btn-danger btn-sm">
+                                        <a th:href="@{/admin/list}"> <i class="fa fa-ban"></i> Reset</a>
+
+                                    </button>
+                                </div>
+
+                            </form>
+
+                            <span th:utext="${successMessage}"></span>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-2"></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>
+<div th:include="fragments/footer">
+</div>
+</html>
