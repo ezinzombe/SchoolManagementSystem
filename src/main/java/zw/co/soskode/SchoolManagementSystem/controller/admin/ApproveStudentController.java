@@ -1,24 +1,26 @@
 package zw.co.soskode.SchoolManagementSystem.controller.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import zw.co.soskode.SchoolManagementSystem.model.Classes;
 import zw.co.soskode.SchoolManagementSystem.model.Role;
 import zw.co.soskode.SchoolManagementSystem.model.Student;
 import zw.co.soskode.SchoolManagementSystem.model.User;
+import zw.co.soskode.SchoolManagementSystem.repository.ClassesRepository;
 import zw.co.soskode.SchoolManagementSystem.repository.RoleRepository;
 import zw.co.soskode.SchoolManagementSystem.repository.StudentRepository;
 import zw.co.soskode.SchoolManagementSystem.repository.UserRepository;
 import zw.co.soskode.SchoolManagementSystem.service.UserService;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.ArrayBlockingQueue;
 
 /**
  * Created by zinzombe on Oct
@@ -35,10 +37,14 @@ public class ApproveStudentController {
     private UserService userService;
     @Autowired
     private RoleRepository roleRepository;
-
+  @Autowired
+  private ClassesRepository classesRepository;
     @GetMapping("/student")
     public String list(Model model) {
-        List<User> students = userRepository.findByRoleName("STUDENT");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String name = authentication.getName();
+        User registrar = userRepository.findByEmail(name);
+        List<User> students = userRepository.findAllByRoleNameAndSchool("STUDENT", registrar.getSchool());
         model.addAttribute("students", students);
         return "admin/approve/student";
     }
@@ -46,15 +52,20 @@ public class ApproveStudentController {
     @RequestMapping("/student/{id}")
     public String edit(@PathVariable Long id, Model model) {
         model.addAttribute("user", userRepository.getOne(id));
+        model.addAttribute("classesLists", classesRepository.findAll());
+
         return "admin/approve/approveStudent";
     }
 
     @RequestMapping(value = {"/student/save"}, method = RequestMethod.POST)
-    public String add(@ModelAttribute("user") @Validated User user, Model model, RedirectAttributes redirectAttributes) {
-        System.out.println("=================================="+user);
+    public String add(@ModelAttribute("user") @Validated User user, Model model,
+                      @ModelAttribute("classes") @Validated String classes,
+            RedirectAttributes redirectAttributes) {
+        System.out.println("====================USER ==============" + user);
         final Student student = new Student();
         final User updatedUser = userRepository.getOne(user.getId());
         final  Role studentRole = roleRepository.findRoleByName("STUDENT");
+       // final  Classes classes1 =classesRepository.findByName(classes.getName());
 //        =================== MAPPING THE STUDENT AFTER APPROVING===============
         student.setUser(user);
         student.setUserId(user.getId());
@@ -64,6 +75,7 @@ public class ApproveStudentController {
         student.setSchool(user.getSchool());
         student.setGender(user.getGender());
         student.setDateOfBirth(user.getDateOfBirth());
+      //  student.setClasses(classes1);
 //        =============UPDATING THE USER NOW===================
         updatedUser.setApproved(true);
         updatedUser.setRoles(user.getRoles());
@@ -76,7 +88,10 @@ public class ApproveStudentController {
 
         studentRepository.save(student);
 
-        List<User> students = userRepository.findByRoleName("STUDENT");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String name = authentication.getName();
+        User registrar = userRepository.findByEmail(name);
+        List<User> students = userRepository.findAllByRoleNameAndSchool("STUDENT", registrar.getSchool());
         model.addAttribute("students", students);
         model.addAttribute("confirmationMessage", "STUDENT:: "+student.getUser().getFirstName()+"  has been approved!!!");
         return "admin/approve/student";

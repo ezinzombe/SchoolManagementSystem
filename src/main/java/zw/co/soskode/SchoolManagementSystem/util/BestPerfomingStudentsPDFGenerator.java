@@ -13,9 +13,9 @@ import java.io.ByteArrayOutputStream;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class BestPerfomingStudentsByProvincePDFGenerator {
+public class BestPerfomingStudentsPDFGenerator {
 
-    private static Logger logger = LoggerFactory.getLogger(BestPerfomingStudentsByProvincePDFGenerator.class);
+    private static Logger logger = LoggerFactory.getLogger(BestPerfomingStudentsPDFGenerator.class);
 
     public static ByteArrayInputStream studentPDFReport(List<Student> students) {
         Document document = new Document();
@@ -28,7 +28,7 @@ public class BestPerfomingStudentsByProvincePDFGenerator {
 
             // Add Text to PDF file ->
             Font font = FontFactory.getFont(FontFactory.COURIER, 14, BaseColor.BLACK);
-            Paragraph para = new Paragraph("Best Performing By Province ", font);
+            Paragraph para = new Paragraph("Best Performing Students :: Ascending Order", font);
             para.setAlignment(Element.ALIGN_CENTER);
             document.add(para);
             document.add(Chunk.NEWLINE);
@@ -48,7 +48,7 @@ public class BestPerfomingStudentsByProvincePDFGenerator {
 
             for (Student student : students) {
                 PdfPCell idCell = new PdfPCell(new Phrase(student.getFirstName().toString()));
-                idCell.setPaddingLeft(4);
+                idCell.setPaddingLeft(2);
                 idCell.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 idCell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(idCell);

@@ -11,8 +11,7 @@
             <div class="col-md-2"></div>
             <div class="col-lg-8">
                 <div class="card">
-                    <div class="card-header"><strong>School</strong>
-                        <small> Form</small>
+                    <div class="card-header"><strong>Province Search</strong>
                     </div>
                     <div class="card-body card-block">
 
@@ -23,9 +22,9 @@
 
                             <div class="form-group">
                                 <label>Select Province : </label>
-                                <select class="form-control">
+                                <select class="form-control" name="province" id="province">
                                     <option th:each="province : ${provinces}"
-                                            th:value="${{province.name}}"
+                                            th:value="${{province}}"
                                             th:text="${province.name}">
                                     </option>
                                 </select>

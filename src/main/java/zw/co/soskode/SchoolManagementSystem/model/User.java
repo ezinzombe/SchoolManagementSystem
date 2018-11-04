@@ -16,20 +16,21 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
+    @ManyToOne
+    @JoinColumn(name = "school_id")
+    private School school;
     private String firstName;
     private String lastName;
     private String email;
     private String password;
     private Boolean approved = Boolean.FALSE;
     private String roleName;
-    private School school;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateOfBirth;
     @Enumerated
     private Gender gender;
 
-    @ManyToOne
+
     public School getSchool() {
         return school;
     }

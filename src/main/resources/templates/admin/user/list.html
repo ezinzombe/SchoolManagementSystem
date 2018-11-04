@@ -28,9 +28,9 @@
                 </div>
             </div>
 
-            <button type="button" class="btn btn-secondary mb-1" data-toggle="modal" data-target="#newUser">
-                New User
-            </button>
+            <!--<button type="button" class="btn btn-secondary mb-1" data-toggle="modal" data-target="#newUser">-->
+            <!--New User-->
+            <!--</button>-->
 
             <table id="roleListTable" th:inline="none" cellspacing="0" width="100%" class="table table-striped">
 
@@ -42,7 +42,7 @@
                     <th scope="col">User Lastname</th>
                     <th scope="col">Role Name</th>
                     <th scope="col">Update</th>
-                    <th scope="col">Delete</th>
+                    <!--<th scope="col">Delete</th>-->
 
                 </tr>
                 </thead>
@@ -54,9 +54,9 @@
                     <td th:text="${user.lastName}"></td>
                     <td th:each="role: ${user.roles}" th:text="${role.name}"></td>
                     <td><a th:href="@{'/admin/user/update/' + ${user.id}}" class="btn btn-info">Update</a></h2></td>
-                    <td><a th:href="@{'/admin/user/delete/' + ${user.id}}"
-                           onclick="return confirm('Are you sure you want to delete this!')" class="btn btn-danger">Delete</a></h2>
-                    </td>
+                    <!--<td><a th:href="@{'/admin/user/delete/' + ${user.id}}"-->
+                    <!--onclick="return confirm('Are you sure you want to delete this!')" class="btn btn-danger">Delete</a></h2>-->
+                    <!--</td>-->
 
                 </tr>
                 </tbody>

@@ -11,13 +11,13 @@
             <div class="col-lg-8">
                 <div class="card">
                     <div class="card-header"><strong>Approve</strong>
-                        <small> Teacher</small>
+                        <small> Student</small>
                     </div>
                     <div class="card-body card-block">
 
 
                         <form autocomplete="off" class="sky-form" th:object="${user}" method="post"
-                              th:action="@{/admin/approve/teacher/save}"
+                              th:action="@{/cutAdmin/approve/registrar/save}"
                               role="form">
 
                             <input type="hidden" th:field="*{id}"/>

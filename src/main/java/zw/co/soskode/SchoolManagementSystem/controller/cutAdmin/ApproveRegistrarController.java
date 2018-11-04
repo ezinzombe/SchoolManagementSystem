@@ -1,4 +1,4 @@
-package zw.co.soskode.SchoolManagementSystem.controller.admin;
+package zw.co.soskode.SchoolManagementSystem.controller.cutAdmin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -9,13 +9,13 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import zw.co.soskode.SchoolManagementSystem.model.Role;
-import zw.co.soskode.SchoolManagementSystem.model.TeacherDetails;
+import zw.co.soskode.SchoolManagementSystem.model.Student;
 import zw.co.soskode.SchoolManagementSystem.model.User;
 import zw.co.soskode.SchoolManagementSystem.repository.RoleRepository;
-import zw.co.soskode.SchoolManagementSystem.repository.TeacherRepository;
+import zw.co.soskode.SchoolManagementSystem.repository.StudentRepository;
 import zw.co.soskode.SchoolManagementSystem.repository.UserRepository;
+import zw.co.soskode.SchoolManagementSystem.service.UserService;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -24,50 +24,50 @@ import java.util.List;
  * Created by zinzombe on Oct
  */
 @Controller
-@RequestMapping("/admin/approve")
-public class ApproveTeacherController {
+@RequestMapping("/cutAdmin/approve")
+public class ApproveRegistrarController {
 
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private TeacherRepository teacherRepository;
+    private StudentRepository studentRepository;
+    @Autowired
+    private UserService userService;
     @Autowired
     private RoleRepository roleRepository;
 
-    @GetMapping("/teacher")
+    @GetMapping("/registrar")
     public String list(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String name = authentication.getName();
         User registrar = userRepository.findByEmail(name);
-        List<User> teachers = userRepository.findAllByRoleNameAndSchool("TEACHER", registrar.getSchool());
-        model.addAttribute("teachers", teachers);
-        return "admin/approve/teacher";
+        List<User> registrars = userRepository.findAllByRoleNameAndSchool("REGISTRAR", registrar.getSchool());
+        model.addAttribute("registrars", registrars);
+        return "cutAdmin/approve/registrar";
     }
 
-    @RequestMapping("/teacher/{id}")
+    @RequestMapping("/registrar/{id}")
     public String edit(@PathVariable Long id, Model model) {
         model.addAttribute("user", userRepository.getOne(id));
-        return "admin/approve/approveTeacher";
+        return "cutAdmin/approve/approveRegistrar";
     }
 
-    @RequestMapping(value = {"/teacher/save"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/registrar/save"}, method = RequestMethod.POST)
     public String add(@ModelAttribute("user") @Validated User user, Model model, RedirectAttributes redirectAttributes) {
-        System.out.println("==================================" + user);
-        System.out.println("==================================" + user);
-        final TeacherDetails teacherDetails = new TeacherDetails();
+        System.out.println("====================USER ==============" + user);
+        final Student registrar = new Student();
         final User updatedUser = userRepository.getOne(user.getId());
-        final Role studentRole = roleRepository.findRoleByName("TEACHER");
-        teacherDetails.setUser(user);
-        teacherDetails.setUserId(user.getId());
-        teacherDetails.setDateCreated(new Date());
-        teacherDetails.setFirstName(user.getFirstName());
-        teacherDetails.setLastName(user.getLastName());
-        teacherDetails.setSchool(user.getSchool());
-        teacherDetails.setGender(user.getGender());
-        teacherDetails.setEmail(user.getEmail());
-        teacherDetails.setDateOfBirth(user.getDateOfBirth());
-
-
+        final Role registrarRole = roleRepository.findRoleByName("REGISTRAR");
+//        =================== MAPPING THE REGISTRAR AFTER APPROVING===============
+        registrar.setUser(user);
+        registrar.setUserId(user.getId());
+        registrar.setDateCreated(new Date());
+        registrar.setFirstName(user.getFirstName());
+        registrar.setLastName(user.getLastName());
+        registrar.setSchool(user.getSchool());
+        registrar.setGender(user.getGender());
+        registrar.setDateOfBirth(user.getDateOfBirth());
+//        =============UPDATING THE USER NOW===================
         updatedUser.setApproved(true);
         updatedUser.setRoles(user.getRoles());
         updatedUser.setFirstName(user.getFirstName());
@@ -75,17 +75,17 @@ public class ApproveTeacherController {
         updatedUser.setEmail(user.getEmail());
         updatedUser.setPassword((user.getPassword()));
         updatedUser.setRoleName(user.getRoleName());
-        updatedUser.setRoles(Arrays.asList(studentRole));
+        updatedUser.setRoles(Arrays.asList(registrarRole));
 
-        teacherRepository.save(teacherDetails);
+        studentRepository.save(registrar);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String name = authentication.getName();
-        User registrar = userRepository.findByEmail(name);
-        List<User> teachers = userRepository.findAllByRoleNameAndSchool("TEACHER", registrar.getSchool());
-        model.addAttribute("teachers", teachers);
-        model.addAttribute("confirmationMessage", "Teacher"+teacherDetails.getUser().getFirstName()+"  has been approved!!!");
-        return "admin/approve/teacher";
+
+        List<User> registrars = userRepository.findAllByRoleName("REGISTRAR");
+        model.addAttribute("registrars", registrars);
+        model.addAttribute("confirmationMessage", "REGISTRAR:: " + registrar.getUser().getFirstName() + "  has been approved!!!");
+        return "cutAdmin/approve/registrar";
     }
 
 }

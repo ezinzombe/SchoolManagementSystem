@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:include="fragments/header"></th:block>
+
+<div class="content mt-3">
+    <div class="animated fadeIn">
+        <div class="row">
+
+
+
+            <div class="col-md-2"></div>
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-header"><strong>Assignment</strong>
+                        <small> Form</small>
+                    </div>
+                    <div class="card-body card-block">
+
+
+                        <form autocomplete="off" class="sky-form" th:object="${assignment}" method="post" th:action="@{/assignment/save}" role="form">
+                            <input type="hidden" th:field="*{id}"/>
+
+
+                            <div class="form-group">
+                                <label>Subject : </label>
+                                <select class="form-control" th:field="*{subject}">
+
+                                    <option th:each="subject : ${subjects}"
+                                            th:value="${subject.id}"
+                                            th:text="${subject.name}">
+                                    </option>
+                                </select>
+                            </div>
+
+
+                            <div class="form-group"><label for="name" class=" form-control-label">Assignment
+                                Topic</label><input type="text" id="name" name="name" th:field="*{name}"
+                                                   required="" placeholder="Enter your topic name"
+                                                   class="form-control">
+                                <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                            </div>
+                            <div class="form-group"><label for="marks" class=" form-control-label">Assignment
+                                Mark</label><input type="number" id="marks" name="mark" th:field="*{marks}"
+                                                    required="" placeholder="Enter  mark"
+                                                    class="form-control">
+                                <div th:if="${#fields.hasErrors('marks')}" th:errors="*{marks}"></div>
+                            </div>
+
+                            <div class="form-group"><label for="description" class=" form-control-label">Descriptive Questions
+                            </label><textarea type="text" id="description" name="description" th:field="*{description}"
+                                                   required="" placeholder="Enter your descriptive question"
+                                              class="form-control"></textarea>
+                                <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
+                            </div>
+
+
+                            <div class="form-group"><label for="dueDate" class=" form-control-label">Due Date
+                            </label><input type="date" id="dueDate" name="dueDate" th:field="*{dueDate}"
+                                            class="form-control">
+                                <div th:if="${#fields.hasErrors('dueDate')}" th:errors="*{dueDate}"></div>
+                            </div>
+
+
+
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary btn-sm">
+                                    <i class="fa fa-dot-circle-o"></i> Submit
+                                </button>
+                                <button type="reset" class="btn btn-danger btn-sm">
+                                   <a th:href="@{/assignment/list}"> <i class="fa fa-ban"></i> Reset</a>
+
+                                </button>
+                            </div>
+
+                        </form>
+
+
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="col-md-2"></div>
+
+
+    </div>
+</div>
+
+</div>
+</div>
+<div th:include="fragments/footer"></div>

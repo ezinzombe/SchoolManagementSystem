@@ -29,7 +29,7 @@ public class AddressController {
 
     @Inject
     private StudentService studentService;
-
+//marigafarai1@gmail.com
 
     @RequestMapping(value = "/add/{id}", method = RequestMethod.GET)
     public String add(@PathVariable("id") Long id, Model model) {

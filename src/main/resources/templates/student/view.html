@@ -51,30 +51,22 @@
                                 </li>
 
                                 <li sec:authorize="hasAuthority('STUDENT')" class="nav-item">
-                                    <a class="nav-link" id="uploadAssignments-tab" data-toggle="tab"
-                                       href="#uploadAssignments" role="tab"
-                                       aria-controls="uploadAssignments" aria-selected="false">Upload Assignments</a>
-                                </li>
-                                <li sec:authorize="hasAuthority('TEACHER')" class="nav-item">
-                                    <a class="nav-link" id="studentAssignments-tab" data-toggle="tab" href="#results" role="tab">
-                                    </a>
+                                    <a class="nav-link" id="availableAssignments-tab" data-toggle="tab"
+                                       href="#availableAssignments" role="tab"
+                                       aria-controls="availableAssignments" aria-selected="false">Assignments</a>
                                 </li>
 
-
-                                <li class="nav-item">
-                                    <a class="nav-link" id="results-tab" data-toggle="tab" href="#results" role="tab"
-                                       aria-controls="results" aria-selected="false">Assignments</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="uploadAssignments-tab" data-toggle="tab" href="#results"
-                                       role="tab"
-                                       aria-controls="results" aria-selected="false">Upload Assignments</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="studentAssignments-tab" data-toggle="tab" href="#results"
+                                <li class="nav-item" sec:authorize="hasAuthority('TEACHER')">
+                                    <a class="nav-link" id="uploadedAssignments-tab" data-toggle="tab" href="#uploadedAssignments"
                                        role="tab"
 
                                        aria-controls="results" aria-selected="false">My Students Assignments</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="result-tab" data-toggle="tab" href="#results"
+                                       role="tab"
+
+                                       aria-controls="results" aria-selected="false">Results</a>
                                 </li>
 
 
@@ -127,15 +119,15 @@
                                             <th>Subject name</th>
                                             <th>Mark Obtained</th>
                                             <th>Grade Result</th>
-                                            <th></th>
-                                            <th></th>
+                                            <th sec:authorize="hasAuthority('TEACHER')"></th>
+                                            <th sec:authorize="hasAuthority('TEACHER')"></th>
                                         </tr>
                                         </thead>
 
                                         <tr th:each=" grade: ${grades}">
                                             <td th:text="${grade.subject?.name}"></td>
                                             <td th:text="${grade.mark}"></td>
-                                            <td th:text="${grade.symbolResult}"></td>
+                                            <td th:text="${grade.getMarkPercentage()}"></td>
 
 
                                             <div sec:authorize="hasAuthority('TEACHER')">
@@ -196,56 +188,69 @@
                                     </table>
 
                                 </div>
-
-
                                 <div class="tab-pane fade" id="results" role="tabpanel" aria-labelledby="results-tab">
                                 </div>
 
 
                                 <!--==================================================================================ASSIGNMENTS=======================================================-->
-                                <div class="tab-pane fade" id="uploadAssignments" role="tabpanel"
+                                <div class="tab-pane fade" id="availableAssignments" role="tabpanel"
                                      aria-labelledby="uploadAssignments-tab">
 
-                                    <button type="button" class="btn btn-secondary mb-1" data-toggle="modal"
-                                            data-target="#assignmentsModal">
-                                        Add Assignment
-                                    </button>
                                     <table class="table table-striped">
                                         <thead>
                                         <tr>
 
                                             <th>Subject</th>
-                                            <th>Assignmment Name</th>
+                                            <th>Assignment Name</th>
                                             <th>Marks %</th>
+                                            <th>Date Created</th>
                                             <th>Due Date</th>
-
-                                            <th></th>
-                                            <th></th>
                                         </tr>
                                         </thead>
 
-                                        <!--<tr th:each=" address: ${addressList}">-->
-                                        <!--<td th:text="${address.addressLine1}"></td>-->
-                                        <!--<td th:text="${address.addressLine2}"></td>-->
-                                        <!--<td th:text="${address.addressType}"></td>-->
-                                        <!--<td th:text="${address.contact}"></td>-->
-                                        <td>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-success btn-danger"
-                                               href="">Delete</a>
-                                        </td>
+                                        <tr th:each=" assignment: ${assignments}">
+                                        <td th:text="${assignment.subject.name}"></td>
+                                        <td th:text="${assignment.name}"></td>
+                                            <td th:text="${assignment.marks}"></td>
 
-                                        </tr>
+                                            <td th:text="${assignment.dateCreated}"></td>
+                                        <td th:text="${assignment.dueDate}"></td>
+
+
 
                                     </table>
 
                                 </div>
 
                                 <!--===========================================================================================================================================                             -->
+<!-- ======================================================+Active Assignments================ -->
 
+                                <!--<div class="tab-pane fade" id="uploadedAssignments" role="tabpanel"-->
+                                     <!--aria-labelledby="uploadAssignments-tab">-->
 
+                                    <!--<table class="table table-striped">-->
+                                        <!--<thead>-->
+                                        <!--<tr>-->
 
+                                            <!--<th>Subject</th>-->
+                                            <!--<th>Assignmment Name</th>-->
+                                            <!--<th>Marks %</th>-->
+                                            <!--<th>Due Date</th>-->
+                                            <!--<th>Status</th>-->
+
+                                        <!--</tr>-->
+                                        <!--</thead>-->
+
+                                        <!--&lt;!&ndash;<tr th:each=" address: ${addressList}">&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<td th:text="${address.addressLine1}"></td>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<td th:text="${address.addressLine2}"></td>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<td th:text="${address.addressType}"></td>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<td th:text="${address.contact}"></td>&ndash;&gt;-->
+                                      <!---->
+
+                                    <!--</table>-->
+
+                                <!--</div>-->
 
 
                             </div>
@@ -333,8 +338,7 @@
     </div>
 </div>
 
-<div id="modalHolder">
-    <div class="modal fade" id="subjectModal" th:fragment="modalContents" tabindex="-1" role="dialog"
+ <div class="modal fade" id="subjectModal" th:fragment="modalContents" tabindex="-1" role="dialog"
          aria-labelledby="mediumModalLabel"
          aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
@@ -357,7 +361,7 @@
                                 <input type="hidden" th:field="*{id}"/>
 
                                 <div class="form-group">
-                                    <label>Select Address Type </label>
+                                    <label>Select Subject </label>
                                     <select class="form-control" th:field="*{subject}">
                                         <option th:each="subject : ${subjects}"
                                                 th:value="${{subject.id}}"
@@ -373,20 +377,11 @@
                                     <div th:if="${#fields.hasErrors('mark')}" th:errors="*{mark}"></div>
                                 </div>
 
-                                <div class="form-group"><label for="symbolResult" class=" form-control-label">Symbol
-                                    Result:
-                                </label><input type="text" id="symbolResult" name="symbolResult"
-                                               th:field="*{symbolResult}"
-                                               required="" placeholder="Enter symbol Result " class="form-control">
-                                    <div th:if="${#fields.hasErrors('symbolResult')}" th:errors="*{symbolResult}"></div>
-                                </div>
-
 
                                 <div class="card-footer">
                                     <button type="submit"
-                                            th:onclick="'javascript:editSubject(\'' + ${newGrade.id} +'\');'"
-                                            class="btn btn-primary btn-sm">
-                                        <i class="fa fa-dot-circle-o"></i> Submit
+                                            onclick="editMarks(this)"
+                                            class="btn btn-primary btn-sm"><i class="fa fa-dot-circle-o"></i> Submit
                                     </button>
                                     <button type="reset" class="btn btn-danger btn-sm">
                                         <i class="fa fa-ban"></i> Reset
@@ -410,7 +405,7 @@
     </div>
 
 
-</div>
+
 
 <!--=============================================================ASSIGNMENT UPLOAD MODAL ===================================-->
 <div class="modal fade" id="assignmentsModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel"
@@ -488,41 +483,28 @@
 
 <!--===============================================================ASSIGNMENT END ==================================================-->
 
-<div id="productdetailsModal" class="modal fade">
-    <div class="modal-dialog">
-        <form method="post" id="product_form">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title"><i class="fa fa-plus"></i> Product Details</h4>
-                </div>
-                <div class="modal-body">
-                    <Div id="product_details"></Div>
-                </div>
-                <div class="modal-footer">
-
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
 
 </div>
 
+<script src="webjars/js/jq"></script>
 <script>
-    function editSubject(id) {
-        $.ajax({
-            url: "/grades/single/" + id,
-            success: function (response) {
 
-                alert("===========================" + response)
-                $('#modalHolder').html(response);
-                $('#subjectModal').modal();
-                $('#subjectModal').modal('open');
-            }
-        });
+    function editMarks(obj) {
+        alert("======================" + obj)
     }
+
+    // function editSubject(id) {
+    //     $.ajax({
+    //         url: "/grades/single/" + id,
+    //         success: function (response) {
+    //
+    //             alert("===========================" + response)
+    //             $('#modalHolder').html(response);
+    //             $('#subjectModal').modal();
+    //             $('#subjectModal').modal('open');
+    //         }
+    //     });
+    // }
 </script>
 
 <div th:include="fragments/footer"></div>

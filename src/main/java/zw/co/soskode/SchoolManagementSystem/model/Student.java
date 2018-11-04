@@ -4,25 +4,33 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-
+import java.io.Serializable;
 import java.util.*;
-
-import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "student")
-public class Student extends  BaseEntityId{
+public class Student implements Serializable {
 
-	private static final long serialVersionUID = -5457596000511194801L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    @ManyToOne
+    @JoinColumn(name = "school_id")
     private School school;
-	private Long userId;
-	private User  user;
+    @DateTimeFormat(pattern = "dd/M/yyyy hh:mm:ss")
+    private Date dateCreated;
     private String firstName;
     private String lastName;
+    private Long userId;
+    @OneToOne(fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn
+    private User user;
     @Enumerated
     private FormType formType;
     private Classes classes;
+    @OneToMany(mappedBy = "student")
     private List<Address> addresses;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "student", cascade = CascadeType.ALL)
     private List<Grades> grades;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateOfBirth;
@@ -30,6 +38,29 @@ public class Student extends  BaseEntityId{
     private Gender gender;
     private Integer points;
 
+    public School getSchool() {
+        return school;
+    }
+
+    public void setSchool(School school) {
+        this.school = school;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
 
     public Integer getPoints() {
         return points;
@@ -39,7 +70,6 @@ public class Student extends  BaseEntityId{
         this.points = points;
     }
 
-    private Set<Assignment> assignments = new HashSet<>();
 
     public Gender getGender() {
         return gender;
@@ -47,24 +77,6 @@ public class Student extends  BaseEntityId{
 
     public void setGender(Gender gender) {
         this.gender = gender;
-    }
-
-    @ManyToOne
-    public School getSchool() {
-        return school;
-    }
-
-    public void setSchool(School school) {
-        this.school = school;
-    }
-
-    @OneToMany(mappedBy = "student")
-    public Set<Assignment> getAssignments() {
-        return assignments;
-    }
-
-    public void setAssignments(Set<Assignment> assignments) {
-        this.assignments = assignments;
     }
 
     public String getFirstName() {
@@ -94,7 +106,7 @@ public class Student extends  BaseEntityId{
         this.dateOfBirth = dateOfBirth;
     }
 
-    @OneToMany(mappedBy = "student")
+
     @JsonIgnore
     public List<Address> getAddresses() {
         return addresses;
@@ -105,7 +117,7 @@ public class Student extends  BaseEntityId{
     }
 
     //    @OneToMany(mappedBy = "student")
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "student", cascade = CascadeType.ALL)
+
     @JsonIgnore
     public List<Grades> getGrades() {
         return grades;
@@ -139,8 +151,6 @@ public class Student extends  BaseEntityId{
         this.userId = userId;
     }
 
-    @OneToOne(fetch=FetchType.LAZY)
-    @PrimaryKeyJoinColumn
     public User getUser() {
         return this.user;
     }

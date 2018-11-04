@@ -8,43 +8,31 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import zw.co.soskode.SchoolManagementSystem.model.Province;
 import zw.co.soskode.SchoolManagementSystem.model.Student;
 import zw.co.soskode.SchoolManagementSystem.repository.StudentRepository;
-import zw.co.soskode.SchoolManagementSystem.util.BestPerfomingStudentsByProvincePDFGenerator;
+import zw.co.soskode.SchoolManagementSystem.util.BestPerfomingStudentsPDFGenerator;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by zinzombe on Nov
  */
-
 @RestController
-@RequestMapping("/reports/students/province")
-public class BestPerfomingStudentsByProvinceController {
-
-
+@RequestMapping("/reports/students/best")
+public class BestHundredStudentsController {
     @Autowired
     private StudentRepository studentRepository;
 
     @GetMapping(value = "/list", produces = MediaType.APPLICATION_PDF_VALUE)
 
-    public ResponseEntity<InputStreamResource> customerReport(@RequestParam("province") Province province) throws IOException {
-        ;
-        List<Student> students = studentRepository.findBestStudentsByProvince(new PageRequest(0, 50));
+    public ResponseEntity<InputStreamResource> customerReport() throws IOException {
 
-        List<Student> provinceStudents = new ArrayList<>();
-        for (Student s : students) {
-            if (s.getSchool().getProvince().getName() == province.getName()) {
-                provinceStudents.add(s);
-            }
-        }
-        ByteArrayInputStream bis = BestPerfomingStudentsByProvincePDFGenerator.studentPDFReport(provinceStudents);
+        List<Student> students = studentRepository.findBestStudents(new PageRequest(0, 100));
+
+        ByteArrayInputStream bis = BestPerfomingStudentsPDFGenerator.studentPDFReport(students);
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "inline; filename=students.pdf");

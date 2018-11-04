@@ -40,8 +40,9 @@
                                 <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
                             </div>
 
-                            <div class="form-group"><label for="centerNumber" class=" form-control-label">School
-                                Name</label><input type="text" id="centerNumber" name="centerNumber" th:field="*{centerNumber}"
+                            <div class="form-group"><label for="centerNumber" class=" form-control-label">School Centre
+                                Number
+                            </label><input type="text" id="centerNumber" name="centerNumber" th:field="*{centerNumber}"
                                                    required="" placeholder="Enter your centerNumber name"
                                                    class="form-control">
                                 <div th:if="${#fields.hasErrors('centerNumber')}" th:errors="*{centerNumber}"></div>

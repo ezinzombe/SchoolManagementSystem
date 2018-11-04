@@ -83,13 +83,15 @@
                 <li sec:authorize="hasAuthority('REGISTRAR')">
                     <a th:href="@{/admin/approve/student}"> <i class="menu-icon fa fa-opera"></i>Approve Student</a>
 
-                <!--<li sec:authorize="hasAuthority('TEACHER')">-->
-                    <!--<a th:href="@{/admin/approve/student}"> <i class="menu-icon fa  fa-check-square-o"></i>Approve-->
-                        <!--Student</a>-->
+                <li sec:authorize="hasAuthority('REGISTRAR')">
+                    <a th:href="@{/admin/approve/teacher}"> <i class="menu-icon fa  fa-check-square-o"></i>Approve
+                        Teachers</a>
 
                 </li>
-                <li sec:authorize="hasAuthority('REGISTRAR')">
-                    <a th:href="@{/admin/approve/teacher}"> <i class="menu-icon fa fa-opera"></i>Approve Teachers</a>
+
+                <li sec:authorize="hasAuthority('CUTADMIN')">
+                    <a th:href="@{/cutAdmin/approve/registrar}"> <i class="menu-icon fa fa-opera"></i>Approve School
+                        Registrar</a>
                 </li>
                 <li sec:authorize="hasAuthority('CUTADMIN')">
                     <a th:href="@{/admin/school/list}"> <i class="menu-icon fa fa-opera"></i>Manage Schools</a>
@@ -97,6 +99,10 @@
 
                 <li sec:authorize="hasAuthority('TEACHER')">
                     <a th:href="@{/teacherPage}"> <i class="menu-icon fa fa-user"></i>Students</a>
+                </li>
+
+                <li sec:authorize="hasAuthority('TEACHER')">
+                    <a th:href="@{/assignment/list}"> <i class="menu-icon fa fa-user"></i>Assignments</a>
                 </li>
                 <li sec:authorize="hasAuthority('REGISTRAR')">
                     <a th:href="@{/registrarPage}"> <i class="menu-icon fa fa-opera"></i>Students</a>
@@ -109,7 +115,7 @@
                 </li>
 
 
-                <li sec:authorize="hasAuthority('TEACHER') || hasAuthority('ADMIN')">
+                <li sec:authorize="hasAuthority('REGISTRAR') || hasAuthority('ADMIN')">
                     <a th:href="@{/admin/list}"> <i class="menu-icon fa fa-gears"></i>Configurations</a>
                 </li>
 

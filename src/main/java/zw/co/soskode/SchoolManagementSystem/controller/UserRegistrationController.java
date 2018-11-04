@@ -70,6 +70,9 @@ private SchoolRepository schoolRepository;
         user.setEmail(userDto.getEmail());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setRoles(userDto.getRoles());
+        user.setDateOfBirth(userDto.getDateOfBirth());
+        user.setGender(userDto.getGender());
+        user.setSchool(userDto.getSchool());
         System.out.println("============================ROLES======"+userDto.getRoles());
 
         for (Role r: userDto.getRoles()) {
@@ -89,7 +92,6 @@ private SchoolRepository schoolRepository;
                 userService.save(user);
             } else if (r.getName().toUpperCase().equals("REGISTRAR")) {
                 user.setRoleName("REGISTRAR");
-                user.setApproved(true);
                 userService.save(user);
             } else{
                 user.setRoleName("zombie");

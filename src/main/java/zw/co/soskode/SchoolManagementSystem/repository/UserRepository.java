@@ -2,6 +2,7 @@ package zw.co.soskode.SchoolManagementSystem.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import zw.co.soskode.SchoolManagementSystem.model.School;
 import zw.co.soskode.SchoolManagementSystem.model.User;
 
 import java.util.List;
@@ -13,5 +14,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findByRoleName (String name);
     User findUserByRoleName (String name);
+
+    List<User> findAllByRoleName(String name);
     User findUserByFirstName (String firstName);
+
+    List<User> findAllByRoleNameAndSchool(String roleName, School school);
+    List<User> findAllBySchool(School school);
+
+
 }
