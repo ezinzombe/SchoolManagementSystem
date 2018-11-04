@@ -28,6 +28,17 @@ public class Student extends  BaseEntityId{
     private Date dateOfBirth;
     @Enumerated
     private Gender gender;
+    private Integer points;
+
+
+    public Integer getPoints() {
+        return points;
+    }
+
+    public void setPoints(Integer points) {
+        this.points = points;
+    }
+
     private Set<Assignment> assignments = new HashSet<>();
 
     public Gender getGender() {
@@ -92,7 +103,9 @@ public class Student extends  BaseEntityId{
     public void setAddresses(List<Address> addresses) {
         this.addresses = addresses;
     }
-    @OneToMany(mappedBy = "student")
+
+    //    @OneToMany(mappedBy = "student")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "student", cascade = CascadeType.ALL)
     @JsonIgnore
     public List<Grades> getGrades() {
         return grades;

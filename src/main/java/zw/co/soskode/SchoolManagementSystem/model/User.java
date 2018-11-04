@@ -195,4 +195,9 @@ public class User implements Serializable {
 
         return age;
     }
+
+    public int getColumnCount() {
+
+        return getClass().getDeclaredFields().length;
+    }
 }

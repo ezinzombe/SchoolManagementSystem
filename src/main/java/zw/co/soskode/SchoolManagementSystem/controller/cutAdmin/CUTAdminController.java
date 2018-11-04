@@ -12,12 +12,12 @@ import java.util.List;
  * Created by zinzombe on Nov
  */
 @Controller
-@RequestMapping("/cutadmin/reports/")
-public class ReportsController {
+@RequestMapping("/cutadmin/")
+public class CUTAdminController {
 
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model) {
-        return "cutAdmin/reports/list";
+        return "cutAdmin/list";
     }
 }

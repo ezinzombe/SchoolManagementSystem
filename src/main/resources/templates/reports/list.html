@@ -24,10 +24,22 @@
 
 <h4 style="color: rgb(40,96,144)"> Manage Reports</h4>
 <table class="table table-striped">
-
     <tr>
         <td>
-            <a class="btn btn-default" th:href="@{/cutadmin/reports/province}"/> Best Performing By Province</a>
+            <a class="btn btn-default" th:href="@{/reports/students/province/list}"/> Best Performing By Province ::
+            PDF </a>
+        </td>
+        <td>
+            <a class="btn btn-default" th:href="@{/cutadmin/reports/school}"/> Best Performing By School</a>
+        </td>
+        <td>
+            <a class="btn btn-default" th:href="@{/cutadmin/reports/hundred}"/> Top Hundred Best Perfoming</a>
+        </td>
+
+    </tr>
+    <tr>
+        <td>
+            <a class="btn btn-default" th:href="@{/cutadmin/reports/province}"/> Best Performing By Province:: EXCEL</a>
         </td>
 
         <td>
