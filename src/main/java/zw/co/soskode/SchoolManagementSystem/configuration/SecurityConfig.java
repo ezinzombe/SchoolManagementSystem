@@ -13,6 +13,7 @@ import org.springframework.web.accept.ContentNegotiationManager;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 
+import zw.co.soskode.SchoolManagementSystem.model.Role;
 import zw.co.soskode.SchoolManagementSystem.service.UserService;
 
 
@@ -34,11 +35,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/images/**",
             "/webjars/**"};
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder authenticationMgr) throws Exception {
-        authenticationMgr.inMemoryAuthentication()
-                .withUser("teacher@teacher.com").password("teacher").authorities("LECTURER");
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        String password = passwordEncoder().encode("password");
+        Role cutAdminRole = new Role("CUTADMIN");
+        auth.inMemoryAuthentication().withUser("admin@cut.co.zw")
+                .password(password)
+                .credentialsExpired(true)
+                .accountExpired(true)
+                .accountLocked(true)
+                .authorities("CUTADMIN")
+                .roles("CUTADMIN");
+        System.out.println("USER+++++++++++++++++++++++++" + cutAdminRole);
     }
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -71,11 +81,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.setUserDetailsService(userService);
         auth.setPasswordEncoder(passwordEncoder());
         return auth;
-    }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authenticationProvider());
     }
 
 

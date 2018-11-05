@@ -108,6 +108,8 @@ public class HomeController {
         ModelAndView model = new ModelAndView();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String name = authentication.getName();
+        User user = userRepository.findByEmail(name);
+
         model.addObject("username", name);
         model.addObject("schools", schoolRepository.findAll());
         model.setViewName("cutAdmin/home");
