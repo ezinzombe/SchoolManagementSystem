@@ -43,7 +43,7 @@ private SchoolRepository schoolRepository;
 
     @GetMapping
     public String showRegistrationForm(Model model) {
-        model.addAttribute("roles", roleRepository.findAll());
+        model.addAttribute("roles", roleRepository.findAllExpertCutAdmin());
         model.addAttribute("schools", schoolRepository.findAll());
         model.addAttribute("genders", Gender.values());
         return "registration/registration";

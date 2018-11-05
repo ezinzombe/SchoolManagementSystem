@@ -40,8 +40,10 @@ public class ApproveRegistrarController {
     public String list(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String name = authentication.getName();
-        User registrar = userRepository.findByEmail(name);
-        List<User> registrars = userRepository.findAllByRoleNameAndSchool("REGISTRAR", registrar.getSchool());
+       // User registrar = userRepository.findByEmail(name);
+       // List<User> registrars = userRepository.findAllByRoleNameAndSchool("REGISTRAR", registrar.getSchool());
+        List<User> registrars = userRepository.findAllByRoleName("REGISTRAR");
+
         model.addAttribute("registrars", registrars);
         return "cutAdmin/approve/registrar";
     }
