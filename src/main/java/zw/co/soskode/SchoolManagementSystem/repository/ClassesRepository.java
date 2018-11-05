@@ -7,4 +7,5 @@ import zw.co.soskode.SchoolManagementSystem.model.School;
 
 @Repository
 public interface ClassesRepository  extends JpaRepository<Classes, Long> {
+    Classes findByName(String name);
 }

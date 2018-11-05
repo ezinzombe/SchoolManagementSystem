@@ -71,6 +71,9 @@
                 <li class="active" sec:authorize="hasAuthority('CUTADMIN')">
                     <a th:href="@{/cutAdminPage}"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                 </li>
+                <li class="active" sec:authorize="hasAuthority('REGISTRAR')">
+                    <a th:href="@{/registrarPage}"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+                </li>
 
                 <li sec:authorize="hasAuthority('CUTADMIN')">
                     <a th:href="@{/reports/list}"> <i class="menu-icon fa fa-opera"></i>Schools Reports</a>
@@ -97,8 +100,12 @@
                 <li sec:authorize="hasAuthority('TEACHER')">
                     <a th:href="@{/teacherPage}"> <i class="menu-icon fa fa-user"></i>Students</a>
                 </li>
+
+                <li sec:authorize="hasAuthority('TEACHER')">
+                    <a th:href="@{/assignment/list}"> <i class="menu-icon fa fa-user"></i>Assignments</a>
+                </li>
                 <li sec:authorize="hasAuthority('REGISTRAR')">
-                    <a th:href="@{/}"> <i class="menu-icon fa fa-opera"></i>Students</a>
+                    <a th:href="@{/registrarPage}"> <i class="menu-icon fa fa-opera"></i>Students</a>
                 </li>
 
 

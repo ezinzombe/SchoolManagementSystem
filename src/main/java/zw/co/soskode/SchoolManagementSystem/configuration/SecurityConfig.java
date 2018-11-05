@@ -9,16 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.accept.ContentNegotiationManager;
-import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
-
-import zw.co.soskode.SchoolManagementSystem.model.Role;
 import zw.co.soskode.SchoolManagementSystem.service.UserService;
-
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -35,20 +26,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/images/**",
             "/webjars/**"};
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        String password = passwordEncoder().encode("password");
-        Role cutAdminRole = new Role("CUTADMIN");
-        auth.inMemoryAuthentication().withUser("admin@cut.co.zw")
-                .password(password)
-                .credentialsExpired(true)
-                .accountExpired(true)
-                .accountLocked(true)
-                .authorities("CUTADMIN")
-                .roles("CUTADMIN");
-        System.out.println("USER+++++++++++++++++++++++++" + cutAdminRole);
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder authenticationMgr) throws Exception {
+        authenticationMgr.inMemoryAuthentication()
+                .withUser("teacher@teacher.com").password("teacher").authorities("LECTURER");
     }
-
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -83,5 +65,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return auth;
     }
 
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(authenticationProvider());
+    }
 
 }

@@ -8,9 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import zw.co.soskode.SchoolManagementSystem.model.Classes;
 import zw.co.soskode.SchoolManagementSystem.model.Role;
 import zw.co.soskode.SchoolManagementSystem.model.Student;
 import zw.co.soskode.SchoolManagementSystem.model.User;
+import zw.co.soskode.SchoolManagementSystem.repository.ClassesRepository;
 import zw.co.soskode.SchoolManagementSystem.repository.RoleRepository;
 import zw.co.soskode.SchoolManagementSystem.repository.StudentRepository;
 import zw.co.soskode.SchoolManagementSystem.repository.UserRepository;
@@ -35,7 +37,8 @@ public class ApproveStudentController {
     private UserService userService;
     @Autowired
     private RoleRepository roleRepository;
-
+  @Autowired
+  private ClassesRepository classesRepository;
     @GetMapping("/student")
     public String list(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -49,15 +52,20 @@ public class ApproveStudentController {
     @RequestMapping("/student/{id}")
     public String edit(@PathVariable Long id, Model model) {
         model.addAttribute("user", userRepository.getOne(id));
+        model.addAttribute("classesLists", classesRepository.findAll());
+
         return "admin/approve/approveStudent";
     }
 
     @RequestMapping(value = {"/student/save"}, method = RequestMethod.POST)
-    public String add(@ModelAttribute("user") @Validated User user, Model model, RedirectAttributes redirectAttributes) {
+    public String add(@ModelAttribute("user") @Validated User user, Model model,
+                      @ModelAttribute("classes") @Validated String classes,
+            RedirectAttributes redirectAttributes) {
         System.out.println("====================USER ==============" + user);
         final Student student = new Student();
         final User updatedUser = userRepository.getOne(user.getId());
         final  Role studentRole = roleRepository.findRoleByName("STUDENT");
+       // final  Classes classes1 =classesRepository.findByName(classes.getName());
 //        =================== MAPPING THE STUDENT AFTER APPROVING===============
         student.setUser(user);
         student.setUserId(user.getId());
@@ -67,6 +75,7 @@ public class ApproveStudentController {
         student.setSchool(user.getSchool());
         student.setGender(user.getGender());
         student.setDateOfBirth(user.getDateOfBirth());
+      //  student.setClasses(classes1);
 //        =============UPDATING THE USER NOW===================
         updatedUser.setApproved(true);
         updatedUser.setRoles(user.getRoles());

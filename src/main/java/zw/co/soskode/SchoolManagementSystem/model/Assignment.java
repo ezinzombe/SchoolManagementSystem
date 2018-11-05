@@ -14,11 +14,33 @@ import java.util.Date;
 public class Assignment extends BaseEntityId {
 
     private String name;
-    @DateTimeFormat(pattern = "dd/M/yyyy hh:mm:ss")
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dueDate;
     private Double marks;
-    //    private Student student;
     private Subject subject;
+    private School school;
+    private String description;
+
+
+
+
+    @ManyToOne
+    public School getSchool() {
+        return school;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setSchool(School school) {
+        this.school = school;
+    }
 
     @ManyToOne
     public Subject getSubject() {
@@ -61,4 +83,17 @@ public class Assignment extends BaseEntityId {
 //    public void setStudent(Student student) {
 //        this.student = student;
 //    }
+
+
+    @Override
+    public String toString() {
+        return "Assignment{" +
+                "name='" + name + '\'' +
+                ", dueDate=" + dueDate +
+                ", marks=" + marks +
+                ", subject=" + subject +
+                ", school=" + school +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

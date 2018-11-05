@@ -10,10 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import zw.co.soskode.SchoolManagementSystem.model.*;
-import zw.co.soskode.SchoolManagementSystem.repository.GradesRepository;
-import zw.co.soskode.SchoolManagementSystem.repository.StudentRepository;
-import zw.co.soskode.SchoolManagementSystem.repository.SubjectRepository;
-import zw.co.soskode.SchoolManagementSystem.repository.UserRepository;
+import zw.co.soskode.SchoolManagementSystem.repository.*;
 import zw.co.soskode.SchoolManagementSystem.service.AddressService;
 
 import java.security.Principal;
@@ -39,6 +36,11 @@ public class StudentController {
 
     @Autowired
     private GradesRepository gradesRepository;
+    @Autowired
+    private AssignmentRepository assignmentRepository;
+
+    @Autowired
+    private  SchoolRepository schoolRepository;
 
 
     @RequestMapping(value = "/addSubject", method = RequestMethod.GET)
@@ -88,9 +90,12 @@ public class StudentController {
             model.addAttribute("newGrade",new Grades());
 
             model.addAttribute("addressTypes", AddressType.values());
-            model.addAttribute("grades",gradesRepository.findByStudent(student));
 
-            System.out.println("------------------------"+subjectRepository.findAll());
+            School school=schoolRepository.findByName(student.getSchool().getName());
+            model.addAttribute("grades",gradesRepository.findByStudent(student));
+            model.addAttribute("assignments",assignmentRepository.findBySchool(school));
+
+            System.out.println("------------------------"+school);
             model.addAttribute("subjects", subjectRepository.findAll());
 
         }
