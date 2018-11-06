@@ -60,7 +60,7 @@ public class StudentPointsScheduler {
                     recommendedProgrammesRepository.save(programme);
                 }
             } else if (sum >= 13 && MATHEMATICS && PHYSICS && CHEMISTRY) {
-                recomendedProgrammes.add(ProgrameNames.medicine);
+                recomendedProgrammes.add(ProgrameNames.physics);
                 recomendedProgrammes.add(ProgrameNames.pharmacy);
                 recomendedProgrammes.add(ProgrameNames.compScience);
                 for (RecomendedProgramme programme : recomendedProgrammes) {
