@@ -41,7 +41,17 @@ public class Subject extends BaseEntityId {
         this.name = name;
     }
 
+
+    public Subject(@NotEmpty String name) {
+        this.name = name;
+    }
+
+    public Subject() {
+
+    }
+
     @Override
+
     public String toString() {
         return "Subject{" +
                 "name='" + name + '\'' +

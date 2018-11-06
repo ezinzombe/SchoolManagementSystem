@@ -29,6 +29,8 @@ public class Student implements Serializable {
     private FormType formType;
     private Classes classes;
     @OneToMany(mappedBy = "student")
+    private List<RecomendedProgramme> programmes;
+    @OneToMany(mappedBy = "student")
     private List<Address> addresses;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "student", cascade = CascadeType.ALL)
     private List<Grades> grades;
@@ -37,6 +39,14 @@ public class Student implements Serializable {
     @Enumerated
     private Gender gender;
     private Integer points;
+
+    public List<RecomendedProgramme> getProgrammes() {
+        return programmes;
+    }
+
+    public void setProgrammes(List<RecomendedProgramme> programmes) {
+        this.programmes = programmes;
+    }
 
     public School getSchool() {
         return school;

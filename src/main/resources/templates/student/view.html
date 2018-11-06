@@ -68,6 +68,12 @@
 
                                        aria-controls="results" aria-selected="false">Results</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="programme-tab" data-toggle="tab" href="#programme"
+                                       role="tab"
+
+                                       aria-controls="programme" aria-selected="false">CUT Recommended Programmes</a>
+                                </li>
 
 
                             </ul>
@@ -222,8 +228,35 @@
 
                                 </div>
 
+
                                 <!--===========================================================================================================================================                             -->
-<!-- ======================================================+Active Assignments================ -->
+
+                                <!--===========================================PROGRAMMES========================-->
+                                <div class="tab-pane fade" id="programme" role="tabpanel"
+                                     aria-labelledby="programme-tab">
+
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+
+                                            <th>Programme Name</th>
+                                            <th>Duration</th>
+
+                                        </tr>
+                                        </thead>
+
+                                        <tr th:each=" programme: ${programmes}">
+                                            <td th:text="${programme.name}"></td>
+                                            <td th:text="${programme.duration}"></td>
+                                    </table>
+
+                                </div>
+
+
+                                <!--============================================================END PROGRAMMES===================-->
+
+
+                                <!-- ======================================================+Active Assignments================ -->
 
                                 <!--<div class="tab-pane fade" id="uploadedAssignments" role="tabpanel"-->
                                      <!--aria-labelledby="uploadAssignments-tab">-->

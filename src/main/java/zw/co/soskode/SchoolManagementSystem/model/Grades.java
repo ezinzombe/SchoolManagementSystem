@@ -82,5 +82,12 @@ public class Grades extends BaseEntityId{
 
     }
 
-
+    @Override
+    public String toString() {
+        return "Grades{" +
+                "student=" + student +
+                ", subject=" + subject +
+                ", mark=" + mark +
+                '}';
+    }
 }

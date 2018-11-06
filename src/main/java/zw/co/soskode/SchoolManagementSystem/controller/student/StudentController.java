@@ -41,6 +41,8 @@ public class StudentController {
 
     @Autowired
     private  SchoolRepository schoolRepository;
+    @Autowired
+    private RecommendedProgrammesRepository recommendedProgrammesRepository;
 
 
     @RequestMapping(value = "/addSubject", method = RequestMethod.GET)
@@ -94,7 +96,7 @@ public class StudentController {
             School school=schoolRepository.findByName(student.getSchool().getName());
             model.addAttribute("grades",gradesRepository.findByStudent(student));
             model.addAttribute("assignments",assignmentRepository.findBySchool(school));
-
+            model.addAttribute("programmes", recommendedProgrammesRepository.findByStudent(student));
             System.out.println("------------------------"+school);
             model.addAttribute("subjects", subjectRepository.findAll());
 
